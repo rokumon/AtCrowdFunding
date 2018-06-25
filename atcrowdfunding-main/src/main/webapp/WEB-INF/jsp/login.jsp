@@ -28,17 +28,17 @@
 
     <div class="container">
 		
-      <form class="form-signin" role="form" id="loginForm" action="${ APP_PATH }/doLogin.do" method="post">
+      <form class="form-signin" role="form">
         <h2 class="form-signin-heading"><i class="glyphicon glyphicon-log-in"></i> 用户登录</h2>
         
-        	<c:if test="${ not empty requestScope.exception }">
-        		<div class="form-group has-success has-feedback">
-					${ requestScope.exception.message }
-		  		</div>
-        	</c:if>
+<%--         	<c:if test="${ not empty requestScope.exception }"> --%>
+<!--         		<div class="form-group has-success has-feedback"> -->
+<%-- 					${ requestScope.exception.message } --%>
+<!-- 		  		</div> -->
+<%--         	</c:if> --%>
         
 		  <div class="form-group has-success has-feedback">
-			<input type="text" class="form-control" id="loginacct" name="loginacct" value="" placeholder="请输入登录账号" autofocus>
+			<input type="text" class="form-control" id="loginacct" name="loginacct" value="${ requestScope.loginacct }" placeholder="请输入登录账号" autofocus>
 			<span class="glyphicon glyphicon-user form-control-feedback"></span>
 		  </div>
 		  <div class="form-group has-success has-feedback">
@@ -77,17 +77,37 @@
         if(loginacct.trim() == ""){
          	//alert("用户名不能为空！");
         	layer.msg("用户名不能为空！",{time:1500,icon:5,shift:6});
+        	$("#loginacct").focus();
         	return false;
         }
         
         if(userpswd.trim() == ""){
         	//alert("密码不能为空！");
         	layer.msg("密码不能为空！",{time:1500,icon:5,shift:6});
+        	$("#userpswd").focus();
         	return false;
         }
         
         //同步请求处理
-        $("#loginForm").submit();
+		//$("#loginForm").submit();
+        
+        $.ajax({
+        	type:"POST",
+        	url:"${ APP_PATH }/doLogin.do",
+        	data:{
+        		loginacct:loginacct,
+        		userpswd:userpswd,
+        		usertype:$("#usertype").val()
+        	},
+        	success:function(result){
+        		if(result.success){
+        			window.location.href="${ APP_PATH }/main.htm";
+        		} else {
+        			layer.msg(result.message, {time:1500,icon:5,shift:6});
+        		}
+        	}
+        });
+        
         return false;
     }
     </script>
