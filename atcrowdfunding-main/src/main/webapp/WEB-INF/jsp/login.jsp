@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="zh-CN">
   <head>
@@ -26,15 +27,22 @@
     </nav>
 
     <div class="container">
-
+		
       <form class="form-signin" role="form" id="loginForm" action="${ APP_PATH }/doLogin.do" method="post">
         <h2 class="form-signin-heading"><i class="glyphicon glyphicon-log-in"></i> 用户登录</h2>
+        
+        	<c:if test="${ not empty requestScope.exception }">
+        		<div class="form-group has-success has-feedback">
+					${ requestScope.exception.message }
+		  		</div>
+        	</c:if>
+        
 		  <div class="form-group has-success has-feedback">
-			<input type="text" class="form-control" id="loginacct" name="loginacct" placeholder="请输入登录账号" autofocus>
+			<input type="text" class="form-control" id="loginacct" name="loginacct" value="" placeholder="请输入登录账号" autofocus>
 			<span class="glyphicon glyphicon-user form-control-feedback"></span>
 		  </div>
 		  <div class="form-group has-success has-feedback">
-			<input type="text" class="form-control" id="userpswd" name="userpswd" placeholder="请输入登录密码" style="margin-top:10px;">
+			<input type="password" class="form-control" id="userpswd" name="userpswd" placeholder="请输入登录密码" style="margin-top:10px;">
 			<span class="glyphicon glyphicon-lock form-control-feedback"></span>
 		  </div>
 		  <div class="form-group has-success has-feedback">
@@ -60,18 +68,21 @@
     </div>
     <script src="${ APP_PATH }/jquery/jquery-2.1.1.min.js"></script>
     <script src="${ APP_PATH }/bootstrap/js/bootstrap.min.js"></script>
+    <script src="${ APP_PATH }/jquery/layer/layer.js"></script>
     <script>
     function dologin() {
         var loginacct = $("#loginacct").val();
         var userpswd = $("#userpswd").val();
         
         if(loginacct.trim() == ""){
-        	alert("用户名不能为空！");
+         	//alert("用户名不能为空！");
+        	layer.msg("用户名不能为空！",{time:1500,icon:5,shift:6});
         	return false;
         }
         
         if(userpswd.trim() == ""){
-        	alert("密码不能为空！");
+        	//alert("密码不能为空！");
+        	layer.msg("密码不能为空！",{time:1500,icon:5,shift:6});
         	return false;
         }
         
