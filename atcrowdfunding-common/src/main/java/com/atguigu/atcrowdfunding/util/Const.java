@@ -13,6 +13,8 @@ public class Const {
 	public static final String DEFAULT_USERPSWD = "123";
 	public static final String UPDATE_DATA_ERROR = "修改数据失败!";
 	public static final String DELETE_DATA_ERROR = "删除数据失败!";	
-
+	
+	public static final String REGIST_REGISTACCT_ERROR = "用户名已存在!" ;
+	public static final String REGIST_REGISTINSERT_ERROR = "注册失败!" ;
 	
 }

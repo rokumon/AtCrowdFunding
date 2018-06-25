@@ -9,20 +9,16 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-	<link rel="stylesheet" href="${ APP_PATH }/bootstrap/css/bootstrap.min.css">
-	<link rel="stylesheet" href="${ APP_PATH }/css/font-awesome.min.css">
-	<link rel="stylesheet" href="${ APP_PATH }/css/main.css">
+	<link rel="stylesheet" href="${APP_PATH}/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="${APP_PATH}/css/font-awesome.min.css">
+	<link rel="stylesheet" href="${APP_PATH}/css/main.css">
 	<style>
 	.tree li {
         list-style-type: none;
 		cursor:pointer;
 	}
-	.tree-closed {
-	    height : 40px;
-	}
-	.tree-expanded {
-	    height : auto;
-	}
+	table tbody tr:nth-child(odd){background:#F4F4F4;}
+	table tbody td:nth-child(even){color:#C00;}
 	</style>
   </head>
 
@@ -31,20 +27,20 @@
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container-fluid">
         <div class="navbar-header">
-          <div><a class="navbar-brand" style="font-size:32px;" href="#">众筹平台 - 控制面板</a></div>
+          <div><a class="navbar-brand" style="font-size:32px;" href="#">众筹平台 - 消息模板</a></div>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
             <li style="padding-top:8px;">
 				<div class="btn-group">
 				  <button type="button" class="btn btn-default btn-success dropdown-toggle" data-toggle="dropdown">
-					<i class="glyphicon glyphicon-user"></i> ${ sessionScope.loginUser.username } <span class="caret"></span>
+					<i class="glyphicon glyphicon-user"></i> 张三 <span class="caret"></span>
 				  </button>
 					  <ul class="dropdown-menu" role="menu">
 						<li><a href="#"><i class="glyphicon glyphicon-cog"></i> 个人设置</a></li>
 						<li><a href="#"><i class="glyphicon glyphicon-comment"></i> 消息</a></li>
 						<li class="divider"></li>
-						<li><a href="${ APP_PATH }/doLogout.do"><i class="glyphicon glyphicon-off"></i> 退出系统</a></li>
+						<li><a href="index.html"><i class="glyphicon glyphicon-off"></i> 退出系统</a></li>
 					  </ul>
 			    </div>
 			</li>
@@ -55,11 +51,12 @@
 			</li>
           </ul>
           <form class="navbar-form navbar-right">
-            <input type="text" class="form-control" placeholder="查询">
+            <input type="text" class="form-control" placeholder="Search...">
           </form>
         </div>
       </div>
     </nav>
+
     <div class="container-fluid">
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
@@ -96,9 +93,9 @@
 							</li>
 						</ul>
 					</li>
-					<li class="list-group-item tree-closed">
+					<li class="list-group-item">
 						<span><i class="glyphicon glyphicon-th-large"></i> 业务管理 <span class="badge" style="float:right">7</span></span> 
-						<ul style="margin-top:10px;display:none;">
+						<ul style="margin-top:10px;">
 							<li style="height:30px;">
 								<a href="cert.html"><i class="glyphicon glyphicon-picture"></i> 资质维护</a> 
 							</li>
@@ -109,10 +106,10 @@
 								<a href="process.html"><i class="glyphicon glyphicon-random"></i> 流程管理</a> 
 							</li>
 							<li style="height:30px;">
-								<a href="advertisement.html"><i class="glyphicon glyphicon-hdd"></i> 广告管理</a> 
+								<a href="advertisement.html" ><i class="glyphicon glyphicon-hdd"></i> 广告管理</a> 
 							</li>
 							<li style="height:30px;">
-								<a href="message.html"><i class="glyphicon glyphicon-comment"></i> 消息模板</a> 
+								<a href="message.html" style="color:red;"><i class="glyphicon glyphicon-comment"></i> 消息模板</a> 
 							</li>
 							<li style="height:30px;">
 								<a href="project_type.html"><i class="glyphicon glyphicon-list"></i> 项目分类</a> 
@@ -129,36 +126,61 @@
 			</div>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h1 class="page-header">控制面板</h1>
-
-          <div class="row placeholders">
-            <div class="col-xs-6 col-sm-3 placeholder">
-              <img data-src="holder.js/200x200/auto/sky" class="img-responsive" alt="Generic placeholder thumbnail">
-              <h4>Label</h4>
-              <span class="text-muted">Something else</span>
-            </div>
-            <div class="col-xs-6 col-sm-3 placeholder">
-              <img data-src="holder.js/200x200/auto/vine" class="img-responsive" alt="Generic placeholder thumbnail">
-              <h4>Label</h4>
-              <span class="text-muted">Something else</span>
-            </div>
-            <div class="col-xs-6 col-sm-3 placeholder">
-              <img data-src="holder.js/200x200/auto/sky" class="img-responsive" alt="Generic placeholder thumbnail">
-              <h4>Label</h4>
-              <span class="text-muted">Something else</span>
-            </div>
-            <div class="col-xs-6 col-sm-3 placeholder">
-              <img data-src="holder.js/200x200/auto/vine" class="img-responsive" alt="Generic placeholder thumbnail">
-              <h4>Label</h4>
-              <span class="text-muted">Something else</span>
-            </div>
+			<div class="panel panel-default">
+			  <div class="panel-heading">
+				<h3 class="panel-title"><i class="glyphicon glyphicon-th"></i> 数据列表</h3>
+			  </div>
+			  <div class="panel-body">
+          <div class="table-responsive">
+            <table class="table  table-bordered">
+              <thead>
+                <tr >
+                  <th width="30">#</th>
+                  <th>消息描述</th>
+                  <th width="100">操作</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>密码找回</td>
+                  <td>
+                      <button type="button" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-pencil"></i></button>
+				  </td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>用户激活</td>
+                  <td>
+                      <button type="button" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-pencil"></i></button>
+				  </td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>风险提示</td>
+                  <td>
+                      <button type="button" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-pencil"></i></button>
+				  </td>
+                </tr>
+                <tr>
+                  <td>4</td>
+                  <td>关于我们</td>
+                  <td>
+                      <button type="button" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-pencil"></i></button>
+				  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
+			  </div>
+			</div>
         </div>
       </div>
     </div>
-    <script src="${ APP_PATH }/jquery/jquery-2.1.1.min.js"></script>
-    <script src="${ APP_PATH }/bootstrap/js/bootstrap.min.js"></script>
-	<script src="${ APP_PATH }/script/docs.min.js"></script>
+
+    <script src="${APP_PATH}/jquery/jquery-2.1.1.min.js"></script>
+    <script src="${APP_PATH}/bootstrap/js/bootstrap.min.js"></script>
+	<script src="${APP_PATH}/script/docs.min.js"></script>
         <script type="text/javascript">
             $(function () {
 			    $(".list-group-item").click(function(){

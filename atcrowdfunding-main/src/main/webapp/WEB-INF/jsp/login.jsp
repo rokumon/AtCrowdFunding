@@ -69,21 +69,21 @@
     <script src="${ APP_PATH }/jquery/jquery-2.1.1.min.js"></script>
     <script src="${ APP_PATH }/bootstrap/js/bootstrap.min.js"></script>
     <script src="${ APP_PATH }/jquery/layer/layer.js"></script>
-    <script>
+    <script type="text/javascript">
     function dologin() {
         var loginacct = $("#loginacct").val();
         var userpswd = $("#userpswd").val();
         
         if(loginacct.trim() == ""){
          	//alert("用户名不能为空！");
-        	layer.msg("用户名不能为空！",{time:1500,icon:5,shift:6});
+        	layer.msg("用户名不能为空！",{time:1500, icon:5, shift:6});
         	$("#loginacct").focus();
         	return false;
         }
         
         if(userpswd.trim() == ""){
         	//alert("密码不能为空！");
-        	layer.msg("密码不能为空！",{time:1500,icon:5,shift:6});
+        	layer.msg("密码不能为空！",{time:1500, icon:5, shift:6});
         	$("#userpswd").focus();
         	return false;
         }
@@ -103,7 +103,7 @@
         		if(result.success){
         			window.location.href="${ APP_PATH }/main.htm";
         		} else {
-        			layer.msg(result.message, {time:1500,icon:5,shift:6});
+        			layer.msg(result.message, {time:1500, icon:5, shift:6});
         		}
         	}
         });

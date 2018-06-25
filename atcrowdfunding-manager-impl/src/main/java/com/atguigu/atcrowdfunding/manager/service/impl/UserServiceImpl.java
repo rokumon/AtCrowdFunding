@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.atguigu.atcrowdfunding.bean.User;
 import com.atguigu.atcrowdfunding.exception.UserLoginException;
+import com.atguigu.atcrowdfunding.exception.UserRegistException;
 import com.atguigu.atcrowdfunding.manager.dao.UserDao;
 import com.atguigu.atcrowdfunding.manager.service.UserService;
 import com.atguigu.atcrowdfunding.util.Const;
@@ -38,6 +39,32 @@ public class UserServiceImpl implements UserService {
 		}
 		
 		return user;
+	}
+
+	@Override
+	public void registUser(Map<String, Object> paramMap) {
+		
+		//加密
+		String userpswd = MD5Util.digest((String) paramMap.get("userpswd"));
+		
+		//调用DAO查询
+		User user = userDao.queryUserByLogin(paramMap);
+		
+		//用户名已存在
+		if (user != null) {
+			throw new UserRegistException(Const.REGIST_REGISTACCT_ERROR);
+		}
+		
+		paramMap.put("userpswd", userpswd);
+		
+		Integer changedRow = userDao.insert(paramMap);
+		
+		if(changedRow != 1) {
+			throw new UserRegistException(Const.REGIST_REGISTINSERT_ERROR);
+		}
+		
+		
+		
 	}
 	
 	

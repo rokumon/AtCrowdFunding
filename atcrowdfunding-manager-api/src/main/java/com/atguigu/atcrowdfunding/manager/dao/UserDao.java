@@ -9,7 +9,7 @@ public interface UserDao {
 	
 	int deleteByPrimaryKey(Integer id);
 
-    int insert(User record);
+    int insert(Map<String, Object> paramMap);
     
     User selectByLogin(User record);
 

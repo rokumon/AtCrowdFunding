@@ -7,5 +7,7 @@ import com.atguigu.atcrowdfunding.bean.User;
 public interface UserService {
 	
 	public User queryUserByLogin(Map<String,Object> paramMap);
+	
+	public void registUser(Map<String,Object> paramMap);
 
 }

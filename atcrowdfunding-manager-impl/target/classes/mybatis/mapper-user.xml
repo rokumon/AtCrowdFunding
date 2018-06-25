@@ -19,7 +19,7 @@
     	where id = #{id,jdbcType=INTEGER}
   	</delete>
   
-  	<insert id="insert" parameterType="com.atguigu.atcrowdfunding.bean.User" >
+  	<insert id="insert" parameterType="map" >
     	insert into t_user (id, loginacct, userpswd, username, email, createtime)
     	values (#{id,jdbcType=INTEGER}, #{loginacct,jdbcType=VARCHAR}, #{userpswd,jdbcType=CHAR}, #{username,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{createtime,jdbcType=CHAR})
   	</insert>
