@@ -10,7 +10,7 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
 	
 	<!-- 包扫描 -->
-	<context:component-scan base-package="com.atguigu.atcrowdfuning.*">
+	<context:component-scan base-package="com.atguigu.atcrowdfunding.*">
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 	</context:component-scan>
 
@@ -45,7 +45,7 @@
 	
 	<!-- 扫描Mapper映射配置[DAO] -->
 	<bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com.atguigu.crowdfunding.**.dao"/>
+		<property name="basePackage" value="com.atguigu.atcrowdfunding.**.dao"/>
 	</bean>
 
 	<!-- 事务管理器 -->
