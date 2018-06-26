@@ -1,5 +1,6 @@
 package com.atguigu.atcrowdfunding.manager.service.impl;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import com.atguigu.atcrowdfunding.manager.dao.UserDao;
 import com.atguigu.atcrowdfunding.manager.service.UserService;
 import com.atguigu.atcrowdfunding.util.Const;
 import com.atguigu.atcrowdfunding.util.MD5Util;
+import com.atguigu.atcrowdfunding.util.Page;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -65,6 +67,30 @@ public class UserServiceImpl implements UserService {
 		
 		
 		
+	}
+
+	@Override
+	public Page<User> queryUserByPage(Map<String, Object> paramMap) {
+
+		Integer pageno = (Integer) paramMap.get("pageno");
+		Integer pagesize = (Integer) paramMap.get("pagesize");
+		
+		Page<User> page = new Page<>(pageno, pagesize);
+		
+		Integer startIndex = page.getStartindex();
+		paramMap.put("startIndex", startIndex);
+		
+		System.out.println(paramMap);
+		System.out.println(page);
+		
+		List<User> dates = userDao.queryUserList(paramMap);
+		
+		Integer totalsize = userDao.countUser();
+		
+		page.setDatas(dates);
+		page.setTotalsize(totalsize);
+		
+		return page;
 	}
 	
 	

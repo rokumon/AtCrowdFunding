@@ -46,7 +46,7 @@
 			<span class="glyphicon glyphicon-lock form-control-feedback"></span>
 		  </div>
 		  <div class="form-group has-success has-feedback">
-			<select class="form-control" name="usertype" >
+			<select class="form-control" id="usertype" name="usertype" >
                 <option value="member">会员</option>
                 <option value="user">管理</option>
             </select>

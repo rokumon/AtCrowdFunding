@@ -20,5 +20,9 @@ public interface UserDao {
     int updateByPrimaryKey(User record);
 
 	User queryUserByLogin(Map<String, Object> paramMap);
+
+	List<User> queryUserList(Map<String, Object> paramMap);
+
+	Integer countUser();
     
 }

@@ -50,6 +50,14 @@
     	from t_user
     	where loginacct = #{loginacct,jdbcType=VARCHAR}
   	</select>
+  	
+  	<select id="queryUserList" resultMap="BaseResultMap" parameterType="map">
+    	select id, loginacct, userpswd, username, email, createtime
+    	from t_user limit #{startIndex,jdbcType=INTEGER},#{pagesize,jdbcType=INTEGER}
+  	</select>
 	
+	<select id="countUser" resultType="int" parameterType="map">
+    	select count(*) from t_user
+  	</select>
 	
 </mapper>

@@ -47,8 +47,8 @@
 		  </div>
 		  <div class="form-group has-success has-feedback">
 			<select class="form-control" id="usertype" name="usertype" >
-                <option>企业</option>
-                <option>个人</option>
+                <option value="company">企业</option>
+                <option value="personal">个人</option>
             </select>
 		  </div>
         <div class="checkbox">
@@ -77,26 +77,6 @@
     	var userpswdPatt = /^\w{5,13}$/;
     	var emailPatt = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+$/;
     	
-    	if(!loginacctPatt.test(loginacct)){
-    		layer.msg("用户名不合法!", { time:1500, icon:5, shift:6 });
-    		return false;
-    	}
-    	
-    	if(userpswd !== reuserpswd){
-    		layer.msg("两次输入密码不一致!", { time:1500, icon:5, shift:6 });
-    		return false;
-    	}
-    	
-    	if(!userpswdPatt.test(userpswd)){
-    		layer.msg("密码不合法!", { time:1500, icon:5, shift:6 });
-    		return false;
-    	}
-    	
-    	if(!emailPatt.test(email)){
-    		layer.msg("邮箱不合法!", { time:1500, icon:5, shift:6 });
-    		return false;
-    	}
-    	
     	$.ajax({
     		type:"POST",
 			url:"${ APP_PATH }/doReg.do",
@@ -112,6 +92,27 @@
 				} else {
 					layer.msg(result.message, {time:1500, icon:5, shift:6});
 				}
+			},
+			beforeSend:function(){
+				if(!loginacctPatt.test(loginacct)){
+		    		layer.msg("用户名不合法!", { time:1500, icon:5, shift:6 });
+		    		return false;
+		    	}
+		    	
+		    	if(userpswd !== reuserpswd){
+		    		layer.msg("两次输入密码不一致!", { time:1500, icon:5, shift:6 });
+		    		return false;
+		    	}
+		    	
+		    	if(!userpswdPatt.test(userpswd)){
+		    		layer.msg("密码不合法!", { time:1500, icon:5, shift:6 });
+		    		return false;
+		    	}
+		    	
+		    	if(!emailPatt.test(email)){
+		    		layer.msg("邮箱不合法!", { time:1500, icon:5, shift:6 });
+		    		return false;
+		    	}
 			}
     	});
 

@@ -17,4 +17,6 @@ public class Const {
 	public static final String REGIST_REGISTACCT_ERROR = "用户名已存在!" ;
 	public static final String REGIST_REGISTINSERT_ERROR = "注册失败!" ;
 	
+	public static final String LOAD_DATA_ERROR = "数据加载失败!" ;
+	
 }
