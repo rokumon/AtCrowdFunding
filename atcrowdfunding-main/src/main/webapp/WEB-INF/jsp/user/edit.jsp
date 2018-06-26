@@ -33,7 +33,7 @@
             <li style="padding-top:8px;">
 				<div class="btn-group">
 				  <button type="button" class="btn btn-default btn-success dropdown-toggle" data-toggle="dropdown">
-					<i class="glyphicon glyphicon-user"></i> 张三 <span class="caret"></span>
+					<i class="glyphicon glyphicon-user"></i> ${ sessionScope.loginUser.username } <span class="caret"></span>
 				  </button>
 					  <ul class="dropdown-menu" role="menu">
 						<li><a href="#"><i class="glyphicon glyphicon-cog"></i> 个人设置</a></li>
@@ -135,20 +135,20 @@
 			  <div class="panel-body">
 				<form role="form">
 				  <div class="form-group">
-					<label for="exampleInputPassword1">登陆账号</label>
-					<input type="text" class="form-control" id="exampleInputPassword1" value="test">
+					<label for="loginacct">登陆账号</label>
+					<input type="text" class="form-control" id="loginacct" name="loginacct" oldvalue="${ requestScope.user.loginacct }" value="${ requestScope.user.loginacct }">
 				  </div>
 				  <div class="form-group">
-					<label for="exampleInputPassword1">用户名称</label>
-					<input type="text" class="form-control" id="exampleInputPassword1" value="测试用户">
+					<label for="username">用户名称</label>
+					<input type="text" class="form-control" id="username" name="username" oldvalue="${ requestScope.user.username }" value="${ requestScope.user.username }">
 				  </div>
 				  <div class="form-group">
-					<label for="exampleInputEmail1">邮箱地址</label>
-					<input type="email" class="form-control" id="exampleInputEmail1" value="xxxx@xxxx.com">
+					<label for="email">邮箱地址</label>
+					<input type="email" class="form-control" id="email" name="email" oldvalue="${ requestScope.user.email }" value="${ requestScope.user.email }">
 					<p class="help-block label label-warning">请输入合法的邮箱地址, 格式为： xxxx@xxxx.com</p>
 				  </div>
-				  <button type="button" class="btn btn-success"><i class="glyphicon glyphicon-edit"></i> 修改</button>
-				  <button type="button" class="btn btn-danger"><i class="glyphicon glyphicon-refresh"></i> 重置</button>
+				  <button type="button" class="btn btn-success" onclick="doupdate()" ><i class="glyphicon glyphicon-edit"></i> 修改</button>
+				  <button type="button" class="btn btn-danger" onclick="reset()"><i class="glyphicon glyphicon-refresh"></i> 重置</button>
 				</form>
 			  </div>
 			</div>
@@ -184,7 +184,19 @@
     <script src="${APP_PATH}/jquery/jquery-2.1.1.min.js"></script>
     <script src="${APP_PATH}/bootstrap/js/bootstrap.min.js"></script>
 	<script src="${APP_PATH}/script/docs.min.js"></script>
+	<script src="${ APP_PATH }/jquery/layer/layer.js"></script>
         <script type="text/javascript">
+        
+        	function doupdate(){
+        		alert("提交了");
+        	}
+        	
+        	function reset(){
+        		$("#loginacct").val($("#loginacct").attr("oldvalue"));
+        		$("#username").val($("#username").attr("oldvalue"));
+        		$("#email").val($("#email").attr("oldvalue"));
+        	}
+        
             $(function () {
 			    $(".list-group-item").click(function(){
 				    if ( $(this).find("ul") ) {

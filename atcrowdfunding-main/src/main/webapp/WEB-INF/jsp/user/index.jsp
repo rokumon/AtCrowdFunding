@@ -34,7 +34,7 @@
             <li style="padding-top:8px;">
 				<div class="btn-group">
 				  <button type="button" class="btn btn-default btn-success dropdown-toggle" data-toggle="dropdown">
-					<i class="glyphicon glyphicon-user"></i> 张三 <span class="caret"></span>
+					<i class="glyphicon glyphicon-user"></i> ${ sessionScope.loginUser.username } <span class="caret"></span>
 				  </button>
 					  <ul class="dropdown-menu" role="menu">
 						<li><a href="#"><i class="glyphicon glyphicon-cog"></i> 个人设置</a></li>
@@ -141,7 +141,7 @@
   <button type="button" class="btn btn-warning"><i class="glyphicon glyphicon-search"></i> 查询</button>
 </form>
 <button type="button" class="btn btn-danger" style="float:right;margin-left:10px;"><i class=" glyphicon glyphicon-remove"></i> 删除</button>
-<button type="button" class="btn btn-primary" style="float:right;" onclick="window.location.href='add.html'"><i class="glyphicon glyphicon-plus"></i> 新增</button>
+<button type="button" class="btn btn-primary" style="float:right;" onclick="window.location.href='${APP_PATH}/user/add.htm'"><i class="glyphicon glyphicon-plus"></i> 新增</button>
 <br>
  <hr style="clear:both;">
           <div class="table-responsive">
@@ -163,14 +163,8 @@
 			     <tr >
 				     <td colspan="6" align="center">
 						<ul class="pagination">
-								<li class="disabled"><a href="#">上一页</a></li>
-								<li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-								<li><a href="#">2</a></li>
-								<li><a href="#">3</a></li>
-								<li><a href="#">4</a></li>
-								<li><a href="#">5</a></li>
-								<li><a href="#">下一页</a></li>
-							 </ul>
+
+						</ul>
 					 </td>
 				 </tr>
 
@@ -234,6 +228,7 @@
             				//i 当前元素索引， e 当前元素
             				$.each(list,function(i, e){
             					content+='<tr>';
+            					content+='	<input type="hidden" value="'+e.id+'"/>';
             					content+='	<td>'+(i+1)+'</td>';
             					content+='	<td><input type="checkbox"></td>';
             					content+='	<td>'+e.loginacct+'</td>';
@@ -241,8 +236,8 @@
             					content+='	<td>'+e.email+'</td>';
             					content+='	<td>';
             					content+='	<button type="button" class="btn btn-success btn-xs"><i class=" glyphicon glyphicon-check"></i></button>';
-            					content+='	<button type="button" class="btn btn-primary btn-xs"><i class=" glyphicon glyphicon-pencil"></i></button>';
-            					content+='	<button type="button" class="btn btn-danger btn-xs"><i class=" glyphicon glyphicon-remove"></i></button>';
+            					content+='	<button type="button" class="btn btn-primary btn-xs" onclick="doedit()"><i class=" glyphicon glyphicon-pencil"></i></button>';
+            					content+='	<button type="button" class="btn btn-danger btn-xs" onclick="dodelete()"><i class=" glyphicon glyphicon-remove"></i></button>';
             					content+='	</td>';
             					content+='</tr>';
             				});
@@ -282,6 +277,15 @@
             	});
             	
             }
+            
+			function doedit(){
+				var target = "${ APP_PATH }/user/edit.do?id="+$(this).parent().parent().find('input:first').val();
+				alert($(this));
+				alert($(this).parent().parent().find('input:first'));
+				alert($(this).parent().parent().find('input:first').attr('value'));
+				alert(target);
+            }
+            
             
             $("tbody .btn-success").click(function(){
                 window.location.href = "assignRole.html";

@@ -3,6 +3,9 @@ package com.atguigu.atcrowdfunding.manager.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -51,5 +54,67 @@ public class UserController extends BaseController {
 		}
 		return end();
 	}
+	
+	@RequestMapping("/add.htm")
+	public String add() {
+		return "user/add";
+	}
+	
+	@ResponseBody
+	@RequestMapping("/addUser.do")
+	public Object addUser(String loginacct, String userpswd, String username, String email, HttpSession session) {
+		
+		if(session == null || session.getAttribute(Const.LOGIN_USER) == null) {
+			return "redirect:/login.htm";
+		}
+		
+		start();
+		
+		try {
+			
+			Map<String, Object> paramMap = new HashMap<>();
+			
+			paramMap.put("loginacct", loginacct);
+			paramMap.put("userpswd", userpswd);
+			paramMap.put("username", username);
+			paramMap.put("email", email);
+			
+			userService.addUser(paramMap);
+			
+			success(true);
+		} catch (Exception e) {
+			success(false);
+			message(e.getMessage());
+		}
+		return end();
+	}
+	
+	@RequestMapping("/edit.do")
+	public String edit(Integer id, HttpSession session, HttpServletRequest request) {
+		
+		if(session == null || session.getAttribute(Const.LOGIN_USER) == null) {
+			return "redirect:/login.htm";
+		}
+		
+		User user = userService.queryUserById(id);
+		
+		if(user == null) {
+			return "redirect:/user/index.htm";
+		}
+		
+		request.setAttribute("user", user);
+		
+		return "user/edit";
+	}
+	
+//	@RequestMapping("/update.do")
+//	public String aoedit(Integer id, HttpSession session) {
+//		
+//		if(session == null || session.getAttribute(Const.LOGIN_USER) == null) {
+//			return "redirect:/login.htm";
+//		}
+//		
+//		
+//	}
 	
 }

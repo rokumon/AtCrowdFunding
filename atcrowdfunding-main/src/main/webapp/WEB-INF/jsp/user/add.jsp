@@ -33,13 +33,13 @@
             <li style="padding-top:8px;">
 				<div class="btn-group">
 				  <button type="button" class="btn btn-default btn-success dropdown-toggle" data-toggle="dropdown">
-					<i class="glyphicon glyphicon-user"></i> 张三 <span class="caret"></span>
+					<i class="glyphicon glyphicon-user"></i> ${ sessionScope.loginUser.username } <span class="caret"></span>
 				  </button>
 					  <ul class="dropdown-menu" role="menu">
 						<li><a href="#"><i class="glyphicon glyphicon-cog"></i> 个人设置</a></li>
 						<li><a href="#"><i class="glyphicon glyphicon-comment"></i> 消息</a></li>
 						<li class="divider"></li>
-						<li><a href="login.html"><i class="glyphicon glyphicon-off"></i> 退出系统</a></li>
+						<li><a href="${APP_PATH}/logout.do"><i class="glyphicon glyphicon-off"></i> 退出系统</a></li>
 					  </ul>
 			    </div>
 			</li>
@@ -135,20 +135,24 @@
 			  <div class="panel-body">
 				<form role="form">
 				  <div class="form-group">
-					<label for="exampleInputPassword1">登陆账号</label>
-					<input type="text" class="form-control" id="exampleInputPassword1" placeholder="请输入登陆账号">
+					<label for="loginacct">登陆账号</label>
+					<input type="text" class="form-control" id="loginacct" name="loginacct" placeholder="请输入登陆账号">
 				  </div>
 				  <div class="form-group">
-					<label for="exampleInputPassword1">用户名称</label>
-					<input type="text" class="form-control" id="exampleInputPassword1" placeholder="请输入用户名称">
+					<label for="userpswd">登录密码</label>
+					<input type="password" class="form-control" id="userpswd" name="userpswd" placeholder="请输入登陆账号">
 				  </div>
 				  <div class="form-group">
-					<label for="exampleInputEmail1">邮箱地址</label>
-					<input type="email" class="form-control" id="exampleInputEmail1" placeholder="请输入邮箱地址">
+					<label for="username">用户名称</label>
+					<input type="text" class="form-control" id="username" name="username" placeholder="请输入用户名称">
+				  </div>
+				  <div class="form-group">
+					<label for="email">邮箱地址</label>
+					<input type="email" class="form-control" id="email" name="email" placeholder="请输入邮箱地址">
 					<p class="help-block label label-warning">请输入合法的邮箱地址, 格式为： xxxx@xxxx.com</p>
 				  </div>
-				  <button type="button" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i> 新增</button>
-				  <button type="button" class="btn btn-danger"><i class="glyphicon glyphicon-refresh"></i> 重置</button>
+				  <button type="button" class="btn btn-success" onclick="adduser()"><i class="glyphicon glyphicon-plus"></i> 新增</button>
+				  <button type="reset" class="btn btn-danger" ><i class="glyphicon glyphicon-refresh"></i> 重置</button>
 				</form>
 			  </div>
 			</div>
@@ -184,7 +188,61 @@
     <script src="${APP_PATH}/jquery/jquery-2.1.1.min.js"></script>
     <script src="${APP_PATH}/bootstrap/js/bootstrap.min.js"></script>
 	<script src="${APP_PATH}/script/docs.min.js"></script>
+	<script src="${ APP_PATH }/jquery/layer/layer.js"></script>
         <script type="text/javascript">
+        
+        	function adduser(){
+        		
+        		var loginacct = $("#loginacct").val().trim();
+            	var userpswd = $("#userpswd").val().trim();
+            	var username = $("#username").val().trim();
+            	var email = $("#email").val().trim();
+            	
+            	var loginacctPatt = /^\w{5,13}$/;
+            	var userpswdPatt = /^\w{5,13}$/;
+            	var emailPatt = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+$/;
+            	
+            	$.ajax({
+            		type:"POST",
+        			url:"${ APP_PATH }/user/addUser.do",
+        			data:{
+        				loginacct:loginacct,
+        				userpswd:userpswd,
+        				username:username,
+        				email:email
+        			},
+        			success:function(result){
+        				if( result.success ){
+        					window.location.href="${ APP_PATH }/user/index.htm";
+        				} else {
+        					layer.msg(result.message, {time:1500, icon:5, shift:6});
+        				}
+        			},
+        			beforeSend:function(){
+        				if(!loginacctPatt.test(loginacct)){
+        		    		layer.msg("登录名不合法!", { time:1500, icon:5, shift:6 });
+        		    		return false;
+        		    	}
+        				
+        				if(!userpswdPatt.test(userpswd)){
+        		    		layer.msg("密码不合法!", { time:1500, icon:5, shift:6 });
+        		    		return false;
+        		    	}
+        				
+        				if("" == username){
+        		    		layer.msg("用户名不能为空!", { time:1500, icon:5, shift:6 });
+        		    		return false;
+        		    	}
+        		    	
+        		    	if(!emailPatt.test(email)){
+        		    		layer.msg("邮箱不合法!", { time:1500, icon:5, shift:6 });
+        		    		return false;
+        		    	}
+        			}
+            	});
+            	return false;
+        	}
+        
             $(function () {
 			    $(".list-group-item").click(function(){
 				    if ( $(this).find("ul") ) {

@@ -128,10 +128,10 @@ public class DispatcherController extends BaseController {
 			
 			Member member = memberService.queryMemberByLogin(paramMap);
 
-			 if (member == null) {
-			 throw new MemberRegistException(Const.REGIST_REGISTINSERT_ERROR);
-			 }
-			 session.setAttribute(Const.LOGIN_USER, member);
+			if (member == null) {
+				throw new MemberRegistException(Const.REGIST_REGISTINSERT_ERROR);
+			}
+			session.setAttribute(Const.LOGIN_USER, member);
 			success(true);
 		} catch (Exception e) {
 			success(false);
@@ -178,6 +178,8 @@ public class DispatcherController extends BaseController {
 		if(session != null) {
 			session.removeAttribute(Const.LOGIN_USER);
 		} 
+		
+		session.invalidate();
 		
 		return "redirect:/index.jsp";
 	}
