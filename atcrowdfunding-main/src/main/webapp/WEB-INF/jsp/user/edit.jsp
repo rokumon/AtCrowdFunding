@@ -188,7 +188,7 @@
         <script type="text/javascript">
         
         	function doupdate(){
-        		alert("提交了");
+        		
         	}
         	
         	function reset(){

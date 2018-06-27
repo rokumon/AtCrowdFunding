@@ -228,16 +228,16 @@
             				//i 当前元素索引， e 当前元素
             				$.each(list,function(i, e){
             					content+='<tr>';
-            					content+='	<input type="hidden" value="'+e.id+'"/>';
             					content+='	<td>'+(i+1)+'</td>';
             					content+='	<td><input type="checkbox"></td>';
             					content+='	<td>'+e.loginacct+'</td>';
             					content+='	<td>'+e.username+'</td>';
             					content+='	<td>'+e.email+'</td>';
             					content+='	<td>';
+            					content+='	<input type="hidden" value="'+e.id+'"/>';
             					content+='	<button type="button" class="btn btn-success btn-xs"><i class=" glyphicon glyphicon-check"></i></button>';
-            					content+='	<button type="button" class="btn btn-primary btn-xs" onclick="doedit()"><i class=" glyphicon glyphicon-pencil"></i></button>';
-            					content+='	<button type="button" class="btn btn-danger btn-xs" onclick="dodelete()"><i class=" glyphicon glyphicon-remove"></i></button>';
+            					content+='	<button type="button" class="btn btn-primary btn-xs"><i class=" glyphicon glyphicon-pencil"></i></button>';
+            					content+='	<button type="button" class="btn btn-danger btn-xs"><i class=" glyphicon glyphicon-remove"></i></button>';
             					content+='	</td>';
             					content+='</tr>';
             				});
@@ -276,23 +276,23 @@
             		}
             	});
             	
-            }
+            };
             
-			function doedit(){
-				var target = "${ APP_PATH }/user/edit.do?id="+$(this).parent().parent().find('input:first').val();
-				alert($(this));
-				alert($(this).parent().parent().find('input:first'));
-				alert($(this).parent().parent().find('input:first').attr('value'));
-				alert(target);
-            }
-            
-            
-            $("tbody .btn-success").click(function(){
-                window.location.href = "assignRole.html";
+            $('tbody').delegate("button.btn-primary",'click',function(){  
+//             	alert($(this).parent().find("input:first").val());
+				var id = $(this).parent().find("input:first").val();
+				
+				window.location.href="${APP_PATH}/user/edit.do?id="+id;
+				
             });
-            $("tbody .btn-primary").click(function(){
-                window.location.href = "edit.html";
-            });
+            
+            
+//             $("tbody .btn-success").click(function(){
+//                 window.location.href = "assignRole.html";
+//             });
+//             $("tbody .btn-primary").click(function(){
+//                 window.location.href = "edit.html";
+//             });
         </script>
   </body>
 </html>
