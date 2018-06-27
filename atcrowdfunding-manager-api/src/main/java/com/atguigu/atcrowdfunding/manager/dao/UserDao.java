@@ -24,5 +24,7 @@ public interface UserDao {
 	List<User> queryUserList(Map<String, Object> paramMap);
 
 	Integer countUser();
+
+	int deleteUsersByPrimaryKey(Integer[] id);
     
 }

@@ -94,6 +94,11 @@ public class UserServiceImpl implements UserService {
 	public User queryUserById(Integer id) {
 		return userDao.selectByPrimaryKey(id);
 	}
+
+	@Override
+	public void deleteUser(Integer[] id) {
+		userDao.deleteUsersByPrimaryKey(id);
+	}
 	
 	
 	

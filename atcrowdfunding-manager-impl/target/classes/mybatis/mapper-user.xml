@@ -53,11 +53,26 @@
   	
   	<select id="queryUserList" resultMap="BaseResultMap" parameterType="map">
     	select id, loginacct, userpswd, username, email, createtime
-    	from t_user limit #{startIndex,jdbcType=INTEGER},#{pagesize,jdbcType=INTEGER}
+    	from t_user 
+    	<where>
+    		<if test="queryText != null">
+				loginacct like concat('%', #{queryText}, '%')
+			</if>
+    	</where>
+    	limit #{startIndex,jdbcType=INTEGER},#{pagesize,jdbcType=INTEGER} 
   	</select>
 	
 	<select id="countUser" resultType="int" parameterType="map">
     	select count(*) from t_user
   	</select>
-	
+  	
+  	<delete id="deleteUsersByPrimaryKey" parameterType="Integer[]" >
+    	delete from t_user 
+    	where id in 
+    	<foreach collection="array" item="id" index="no" open="("  
+            separator="," close=")">  
+            #{id}  
+        </foreach>  
+  	</delete>
+  	
 </mapper>

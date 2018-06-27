@@ -68,7 +68,7 @@
 						<span><i class="glyphicon glyphicon glyphicon-tasks"></i> 权限管理 <span class="badge" style="float:right">3</span></span> 
 						<ul style="margin-top:10px;">
 							<li style="height:30px;">
-								<a href="user.html" style="color:red;"><i class="glyphicon glyphicon-user"></i> 用户维护</a> 
+								<a href="${APP_PATH}/user/index.htm" style="color:red;"><i class="glyphicon glyphicon-user"></i> 用户维护</a> 
 							</li>
 							<li style="height:30px;">
 								<a href="role.html"><i class="glyphicon glyphicon-certificate"></i> 角色维护</a> 
@@ -133,7 +133,7 @@
 			<div class="panel panel-default">
               <div class="panel-heading">表单数据<div style="float:right;cursor:pointer;" data-toggle="modal" data-target="#myModal"><i class="glyphicon glyphicon-question-sign"></i></div></div>
 			  <div class="panel-body">
-				<form role="form">
+				<form id="addUserForm">
 				  <div class="form-group">
 					<label for="loginacct">登陆账号</label>
 					<input type="text" class="form-control" id="loginacct" name="loginacct" placeholder="请输入登陆账号">
@@ -147,11 +147,12 @@
 					<input type="text" class="form-control" id="username" name="username" placeholder="请输入用户名称">
 				  </div>
 				  <div class="form-group">
+				  	<!-- label用来扩大作用范围 for id 代表和哪个小东西绑定 -->
 					<label for="email">邮箱地址</label>
 					<input type="email" class="form-control" id="email" name="email" placeholder="请输入邮箱地址">
 					<p class="help-block label label-warning">请输入合法的邮箱地址, 格式为： xxxx@xxxx.com</p>
 				  </div>
-				  <button type="button" class="btn btn-success" onclick="adduser()"><i class="glyphicon glyphicon-plus"></i> 新增</button>
+				  <button id="saveBtn" type="button" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i> 新增</button>
 				  <button type="reset" class="btn btn-danger" ><i class="glyphicon glyphicon-refresh"></i> 重置</button>
 				</form>
 			  </div>
@@ -191,7 +192,7 @@
 	<script src="${ APP_PATH }/jquery/layer/layer.js"></script>
         <script type="text/javascript">
         
-        	function adduser(){
+        	$("#saveBtn").click(function(){
         		
         		var loginacct = $("#loginacct").val().trim();
             	var userpswd = $("#userpswd").val().trim();
@@ -202,9 +203,11 @@
             	var userpswdPatt = /^\w{5,13}$/;
             	var emailPatt = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+$/;
             	
+            	var index = -1;
+            	
             	$.ajax({
             		type:"POST",
-        			url:"${ APP_PATH }/user/addUser.do",
+        			url:"${ APP_PATH }/user/doAdd.do",
         			data:{
         				loginacct:loginacct,
         				userpswd:userpswd,
@@ -212,6 +215,9 @@
         				email:email
         			},
         			success:function(result){
+        				
+        				layer.close(index);
+        				
         				if( result.success ){
         					window.location.href="${ APP_PATH }/user/index.htm";
         				} else {
@@ -219,6 +225,7 @@
         				}
         			},
         			beforeSend:function(){
+        				
         				if(!loginacctPatt.test(loginacct)){
         		    		layer.msg("登录名不合法!", { time:1500, icon:5, shift:6 });
         		    		return false;
@@ -238,10 +245,15 @@
         		    		layer.msg("邮箱不合法!", { time:1500, icon:5, shift:6 });
         		    		return false;
         		    	}
+        		    	
+        		    	index = layer.load(2, {time:10*1000});
         			}
             	});
+            	
             	return false;
-        	}
+        	});
+        
+
         
             $(function () {
 			    $(".list-group-item").click(function(){

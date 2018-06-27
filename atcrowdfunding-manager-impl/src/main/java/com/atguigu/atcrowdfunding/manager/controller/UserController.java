@@ -1,5 +1,7 @@
 package com.atguigu.atcrowdfunding.manager.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,7 +35,8 @@ public class UserController extends BaseController {
 	@ResponseBody
 	@RequestMapping("/queryUserByPage")
 	public Object queryUserByPage(@RequestParam(value="pageno",required=false,defaultValue="1")Integer pageno, 
-								  @RequestParam(value="pagesize",required=false,defaultValue="10")Integer pagesize) {
+								  @RequestParam(value="pagesize",required=false,defaultValue="10")Integer pagesize,
+								  @RequestParam(value="queryText",required=false)String queryText) {
 		
 		start();
 		
@@ -42,6 +45,9 @@ public class UserController extends BaseController {
 			
 			paramMap.put("pageno", pageno);
 			paramMap.put("pagesize", pagesize);
+			paramMap.put("queryText", queryText);
+			
+			System.out.println(paramMap);
 			
 			Page<User> page = userService.queryUserByPage(paramMap);
 					
@@ -55,13 +61,13 @@ public class UserController extends BaseController {
 		return end();
 	}
 	
-	@RequestMapping("/add.htm")
+	@RequestMapping("/toAdd.htm")
 	public String add() {
 		return "user/add";
 	}
 	
 	@ResponseBody
-	@RequestMapping("/addUser.do")
+	@RequestMapping("/doAdd.do")
 	public Object addUser(String loginacct, String userpswd, String username, String email, HttpSession session) {
 		
 		if(session == null || session.getAttribute(Const.LOGIN_USER) == null) {
@@ -72,12 +78,15 @@ public class UserController extends BaseController {
 		
 		try {
 			
+			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			
 			Map<String, Object> paramMap = new HashMap<>();
 			
 			paramMap.put("loginacct", loginacct);
 			paramMap.put("userpswd", userpswd);
 			paramMap.put("username", username);
 			paramMap.put("email", email);
+			paramMap.put("createTime", simpleDateFormat.format(new Date()));
 			
 			userService.addUser(paramMap);
 			
@@ -106,6 +115,30 @@ public class UserController extends BaseController {
 		
 		return "user/edit";
 	}
+	
+	@ResponseBody
+	@RequestMapping("/delete.do")
+	public Object delete(Integer[] id, HttpSession session) {
+		
+		if(session == null || session.getAttribute(Const.LOGIN_USER) == null) {
+			return "redirect:/login.htm";
+		}
+		
+		start();
+		for (Integer integer : id) {
+			System.out.println(integer);
+		}
+		try {
+			userService.deleteUser(id);
+			success(true);
+		} catch (Exception e) {
+			success(false);
+			message(Const.DELETE_DATA_ERROR);
+			e.printStackTrace();
+		}
+		return end();
+	}
+	
 	
 //	@RequestMapping("/update.do")
 //	public String aoedit(Integer id, HttpSession session) {

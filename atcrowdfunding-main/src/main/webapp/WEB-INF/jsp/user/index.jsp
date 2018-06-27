@@ -69,13 +69,13 @@
 						<span><i class="glyphicon glyphicon glyphicon-tasks"></i> 权限管理 <span class="badge" style="float:right">3</span></span> 
 						<ul style="margin-top:10px;">
 							<li style="height:30px;">
-								<a href="user.html" style="color:red;"><i class="glyphicon glyphicon-user"></i> 用户维护</a> 
+								<a href="${APP_PATH}/user/user.htm" style="color:red;"><i class="glyphicon glyphicon-user"></i> 用户维护</a> 
 							</li>
 							<li style="height:30px;">
-								<a href="role.html"><i class="glyphicon glyphicon-king"></i> 角色维护</a> 
+								<a href="${APP_PATH}/user/role.htm"><i class="glyphicon glyphicon-king"></i> 角色维护</a> 
 							</li>
 							<li style="height:30px;">
-								<a href="permission.html"><i class="glyphicon glyphicon-lock"></i> 许可维护</a> 
+								<a href="${APP_PATH}/user/permission.htm"><i class="glyphicon glyphicon-lock"></i> 许可维护</a> 
 							</li>
 						</ul>
 					</li>
@@ -135,13 +135,13 @@
   <div class="form-group has-feedback">
     <div class="input-group">
       <div class="input-group-addon">查询条件</div>
-      <input class="form-control has-success" type="text" placeholder="请输入查询条件">
+      <input class="form-control has-success" id="queryText" type="text" placeholder="请输入查询条件">
     </div>
   </div>
-  <button type="button" class="btn btn-warning"><i class="glyphicon glyphicon-search"></i> 查询</button>
+  <button type="button" id="queryBtn" class="btn btn-warning"><i class="glyphicon glyphicon-search"></i> 查询</button>
 </form>
-<button type="button" class="btn btn-danger" style="float:right;margin-left:10px;"><i class=" glyphicon glyphicon-remove"></i> 删除</button>
-<button type="button" class="btn btn-primary" style="float:right;" onclick="window.location.href='${APP_PATH}/user/add.htm'"><i class="glyphicon glyphicon-plus"></i> 新增</button>
+<button type="button" id="deleteSelectBtn" class="btn btn-danger" style="float:right;margin-left:10px;"><i class=" glyphicon glyphicon-remove"></i> 删除</button>
+<button type="button" class="btn btn-primary" style="float:right;" onclick="window.location.href='${APP_PATH}/user/toAdd.htm'"><i class="glyphicon glyphicon-plus"></i> 新增</button>
 <br>
  <hr style="clear:both;">
           <div class="table-responsive">
@@ -149,7 +149,7 @@
               <thead>
                 <tr >
                   <th width="30">#</th>
-				  <th width="30"><input type="checkbox"></th>
+				  <th width="30"><input id="selectAllCheckBox" type="checkbox"></th>
                   <th>账号</th>
                   <th>名称</th>
                   <th>邮箱地址</th>
@@ -198,12 +198,14 @@
 			    
             });
             
+            var jsonObj = {
+	            pageno:1,
+	            pagesize:10
+	        };
+            
             function queryPage(pageno){
             	
-            	var jsonObj = {
-            		pageno:pageno,
-            		pagesize:10
-            	};
+            	jsonObj.pageno = pageno;
             	
             	var index = -1;
             	
@@ -229,21 +231,19 @@
             				$.each(list,function(i, e){
             					content+='<tr>';
             					content+='	<td>'+(i+1)+'</td>';
-            					content+='	<td><input type="checkbox"></td>';
+            					content+='	<td><input type="checkbox" uid="'+e.id+'" loginacct="'+e.loginacct+'"></td>';
             					content+='	<td>'+e.loginacct+'</td>';
             					content+='	<td>'+e.username+'</td>';
             					content+='	<td>'+e.email+'</td>';
             					content+='	<td>';
-            					content+='	<input type="hidden" value="'+e.id+'"/>';
-            					content+='	<button type="button" class="btn btn-success btn-xs"><i class=" glyphicon glyphicon-check"></i></button>';
-            					content+='	<button type="button" class="btn btn-primary btn-xs"><i class=" glyphicon glyphicon-pencil"></i></button>';
-            					content+='	<button type="button" class="btn btn-danger btn-xs"><i class=" glyphicon glyphicon-remove"></i></button>';
+            					content+='	<button type="button" class="btn btn-success btn-xs selectuser" uid="'+e.id+'"><i class=" glyphicon glyphicon-check"></i></button>';
+            					content+='	<button type="button" class="btn btn-primary btn-xs edituser" uid="'+e.id+'" pageno="'+page.pageno+'"><i class=" glyphicon glyphicon-pencil"></i></button>';
+            					content+='	<button type="button" class="btn btn-danger btn-xs deleteuser" pageno="'+page.pageno+'" uid="'+e.id+'" loginacct="'+e.loginacct+'" ><i class=" glyphicon glyphicon-remove"></i></button>';
             					content+='	</td>';
             					content+='</tr>';
             				});
             				
             				$("tbody").html(content);
-            				
             				
             				//分页条显示
             				var navicontent = '';
@@ -267,25 +267,138 @@
             					navicontent+='<li><a onclick="queryPage('+(page.pageno+1)+')">下一页</a></li>';
             				}
             				
-            				
             				$(".pagination").html(navicontent);
-            				
             			} else {
             				layer.msg("服务器出现异常", {time: 1500, icon:5, shift:6});
             			}
             		}
             	});
-            	
             };
             
-            $('tbody').delegate("button.btn-primary",'click',function(){  
-//             	alert($(this).parent().find("input:first").val());
-				var id = $(this).parent().find("input:first").val();
-				
-				window.location.href="${APP_PATH}/user/edit.do?id="+id;
-				
+            function deleteUser(id, pageno){
+            	
+            	index = -1;
+            	
+            	 $.ajax({
+					type:"POST",            		
+	            	url:"${APP_PATH}/user/delete.do",
+	            	data:{
+	            		id:id
+	            	},
+	            	beforeSend:function(){
+            			index = layer.load(2 , {time:10*1000});
+            			return true;
+            		},
+	            	success:function(result){
+	            		
+	            		layer.close(index);
+	            		if(result.success){
+	            			alert("请求成功");
+	            			queryPage(pageno);
+	            		} else {
+	            			layer.msg(success.message, {time:1500, icon:5, shift:6});
+	            		}
+	            	}
+         		});
+            	 
+            	return false;
+            }
+            
+            //条件查询按钮
+            $('#queryBtn').click(function(){
+            	jsonObj.queryText = $('#queryText').val().trim();
+            	queryPage(1);
             });
             
+            //修改用户按钮
+            $('tbody').delegate(".edituser",'click',function(){  
+				var id = $(this).attr("uid");
+				window.location.href="${APP_PATH}/user/edit.do?id="+id;
+            });
+            
+            //删除用户按钮
+            $('tbody').delegate(".deleteuser",'click',function(){  
+				var id = $(this).attr("uid");
+				var loginacct = $(this).attr("loginacct");
+				var pageno =  $(this).attr("pageno");
+				alert(id);
+				layer.confirm("确认删除用户 "+loginacct+" 吗",  {icon: 3, title:'确认信息'}, function(cindex){
+				    layer.close(cindex);
+					deleteUser(id, pageno);
+				}, function(cindex){
+				    layer.close(cindex);
+				});
+            });
+            
+            //选择按钮
+            $('tbody').delegate(".selectuser",'click',function(){  
+            	var box = $(this).parent().parent().find("td:eq(1) input")[0];
+            	$(box).prop("checked",!box.checked);
+            });
+            
+            $('#deleteSelectBtn').click(function(){
+            	
+            	var checkboxArray = $("tbody :checked");
+            	
+            	var pageno = $(this).attr("pageno");
+            	
+            	if(checkboxArray.length == 0){
+            		layer.msg("请至少选择一个用户，才能删除", {time:1500, icon:5, shift:6});
+            		return false;
+            	}
+            	
+            	//var loginacct[];
+            	
+            	var id = "";
+            	
+            	$.each(checkboxArray,function(i,e){
+            		if(i==0){
+            			id += "id="+$(e).attr("uid");
+            		} else {
+            			id += "&id="+$(e).attr("uid");
+            		}
+            	});
+            	
+            	layer.confirm("确认删除 "+checkboxArray.length+" 个用户吗",  {icon: 3, title:'确认信息'}, function(cindex){
+				    layer.close(cindex);
+					
+				    var index = -1;
+				    
+				    $.ajax({
+						type:"POST",            		
+	            		url:"${APP_PATH}/user/delete.do",
+	            		data:id,
+	            		beforeSend:function(){
+	            			index = layer.load(2 , {time:10*1000});
+	            			return true;
+	            		},
+	            		success:function(result){
+	            			layer.close(index);
+	            			if(result.success){
+	            				queryPage(pageno);
+	            			} else {
+	            				layer.msg(result.message, {time:1500, icon:5, shift:6});
+	            			}
+	            		}
+            		});
+				}, function(cindex){
+				    layer.close(cindex);
+				    return false;
+				});
+				            
+            });
+            
+            $('#selectAllCheckBox').click(function(){
+            	
+            	var status = this.checked;
+            	
+            	var checkboxArray = $('tbody :checkbox');
+            	
+            	$.each(checkboxArray,function(i,e){
+            		e.checked = status;
+            	});
+            	
+            });
             
 //             $("tbody .btn-success").click(function(){
 //                 window.location.href = "assignRole.html";

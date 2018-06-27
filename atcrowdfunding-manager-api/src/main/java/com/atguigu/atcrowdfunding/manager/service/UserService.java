@@ -14,4 +14,6 @@ public interface UserService {
 	public Page<User> queryUserByPage(Map<String, Object> paramMap);
 
 	public User queryUserById(Integer id);
+
+	public void deleteUser(Integer[] id);
 }

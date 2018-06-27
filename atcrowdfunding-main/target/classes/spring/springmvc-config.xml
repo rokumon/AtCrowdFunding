@@ -48,7 +48,6 @@
             <props>
                 <prop key="java.lang.Exception">error/error</prop>
                 <prop key="com.atguigu.atcrowdfunding.exception.UserLoginException">login</prop>
-                <prop key="com.atguigu.atcrowdfunding.exception.UserRegistException">reg</prop>
             </props>  
         </property>  
     </bean>
