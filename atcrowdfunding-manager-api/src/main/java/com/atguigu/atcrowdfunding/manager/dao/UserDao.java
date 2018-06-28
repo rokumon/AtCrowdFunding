@@ -6,8 +6,6 @@ import java.util.Map;
 import com.atguigu.atcrowdfunding.bean.User;
 
 public interface UserDao {
-	
-	int deleteByPrimaryKey(Integer id);
 
     int insert(Map<String, Object> paramMap);
     
@@ -26,5 +24,4 @@ public interface UserDao {
 	Integer countUser();
 
 	int deleteUsersByPrimaryKey(Integer[] id);
-    
 }

@@ -77,9 +77,6 @@ public class UserServiceImpl implements UserService {
 		Integer startIndex = page.getStartindex();
 		paramMap.put("startIndex", startIndex);
 		
-		System.out.println(paramMap);
-		System.out.println(page);
-		
 		List<User> dates = userDao.queryUserList(paramMap);
 		
 		Integer totalsize = userDao.countUser();
@@ -102,12 +99,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void updateUser(Map<String, Object> paramMap) {
-		
 		userDao.updateUser(paramMap);
-		
 	}
-	
-	
-	
 	
 }

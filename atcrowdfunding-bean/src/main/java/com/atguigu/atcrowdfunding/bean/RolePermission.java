@@ -1,6 +1,7 @@
 package com.atguigu.atcrowdfunding.bean;
 
 public class RolePermission {
+	
     private Integer id;
 
     private Integer roleid;
