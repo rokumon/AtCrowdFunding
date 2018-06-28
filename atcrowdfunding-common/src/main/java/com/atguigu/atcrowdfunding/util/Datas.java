@@ -1,8 +1,5 @@
 package com.atguigu.atcrowdfunding.util;
 
-import java.util.ArrayList;
-import java.util.List;
-
 //import com.atguigu.atcrowdfunding.bean.MemberCert;
 
 public class Datas {

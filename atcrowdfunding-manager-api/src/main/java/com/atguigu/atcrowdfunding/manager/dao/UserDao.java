@@ -17,7 +17,7 @@ public interface UserDao {
 
     List<User> selectAll();
 
-    int updateByPrimaryKey(User record);
+    int updateUser(Map<String, Object> paramMap);
 
 	User queryUserByLogin(Map<String, Object> paramMap);
 

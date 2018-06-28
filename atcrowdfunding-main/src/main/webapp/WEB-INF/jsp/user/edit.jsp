@@ -147,7 +147,7 @@
 					<input type="email" class="form-control" id="email" name="email" oldvalue="${ requestScope.user.email }" value="${ requestScope.user.email }">
 					<p class="help-block label label-warning">请输入合法的邮箱地址, 格式为： xxxx@xxxx.com</p>
 				  </div>
-				  <button type="button" class="btn btn-success" onclick="doupdate()" ><i class="glyphicon glyphicon-edit"></i> 修改</button>
+				  <button type="button" id="doupdateBtn" class="btn btn-success" onclick="doupdate()" uid="${ requestScope.user.id }" ><i class="glyphicon glyphicon-edit"></i> 修改</button>
 				  <button type="button" class="btn btn-danger" onclick="reset()"><i class="glyphicon glyphicon-refresh"></i> 重置</button>
 				</form>
 			  </div>
@@ -189,6 +189,28 @@
         
         	function doupdate(){
         		
+        		var id = $("#doupdateBtn").attr("uid");
+        		var loginacct = $("#loginacct").val().trim();
+        		var username = $("#username").val().trim();
+        		var email = $("#email").val().trim();
+        		
+        		$.ajax({
+        			type:"POST",
+        			url:"${APP_PATH}/user/doUpdate.do",
+        			data:{
+        				id:id,
+        				loginacct:loginacct,
+        				username:username,
+        				email:email
+        			},
+        			success:function(result){
+        				if(result.success){
+        					window.location.href="${APP_PATH}/user/index.htm?pageno=${param.pageno}";
+        				} else {
+        					layer.msg(result.message, {time:1500, icon:5, shift:6});
+        				}
+        			}
+        		});
         	}
         	
         	function reset(){

@@ -194,8 +194,13 @@
 					}
 				});
 			    
-			    queryPage(1);
+			    var pageno = "${param.pageno}";
 			    
+			    if(pageno == ""){
+			    	queryPage(1);
+			    } else {
+			    	queryPage(pageno);
+			    }
             });
             
             var jsonObj = {
@@ -313,7 +318,8 @@
             //修改用户按钮
             $('tbody').delegate(".edituser",'click',function(){  
 				var id = $(this).attr("uid");
-				window.location.href="${APP_PATH}/user/edit.do?id="+id;
+				var pageno = $(this).attr("pageno");
+				window.location.href="${APP_PATH}/user/edit.do?id="+id+"&pageno="+pageno;
             });
             
             //删除用户按钮
@@ -346,8 +352,6 @@
             		layer.msg("请至少选择一个用户，才能删除", {time:1500, icon:5, shift:6});
             		return false;
             	}
-            	
-            	//var loginacct[];
             	
             	var id = "";
             	
@@ -385,7 +389,6 @@
 				    layer.close(cindex);
 				    return false;
 				});
-				            
             });
             
             $('#selectAllCheckBox').click(function(){

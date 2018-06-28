@@ -16,4 +16,6 @@ public interface UserService {
 	public User queryUserById(Integer id);
 
 	public void deleteUser(Integer[] id);
+
+	public void updateUser(Map<String, Object> paramMap);
 }

@@ -99,6 +99,13 @@ public class UserServiceImpl implements UserService {
 	public void deleteUser(Integer[] id) {
 		userDao.deleteUsersByPrimaryKey(id);
 	}
+
+	@Override
+	public void updateUser(Map<String, Object> paramMap) {
+		
+		userDao.updateUser(paramMap);
+		
+	}
 	
 	
 	

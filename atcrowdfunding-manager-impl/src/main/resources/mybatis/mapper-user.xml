@@ -24,13 +24,24 @@
     	values (#{id,jdbcType=INTEGER}, #{loginacct,jdbcType=VARCHAR}, #{userpswd,jdbcType=CHAR}, #{username,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{createtime,jdbcType=CHAR})
   	</insert>
   
-  	<update id="updateByPrimaryKey" parameterType="com.atguigu.atcrowdfunding.bean.User" >
+  	<update id="updateUser" parameterType="map" >
     	update t_user
-    	set loginacct = #{loginacct,jdbcType=VARCHAR},
-      		userpswd = #{userpswd,jdbcType=CHAR},
-      		username = #{username,jdbcType=VARCHAR},
-      		email = #{email,jdbcType=VARCHAR},
-      		createtime = #{createtime,jdbcType=CHAR}
+    	<set>
+			<trim prefixOverrides="," suffixOverrides=",">
+				<if test="loginacct != null">
+					loginacct = #{loginacct,jdbcType=VARCHAR},
+				</if>
+				<if test="userpswd != null">
+					userpswd = #{userpswd,jdbcType=CHAR},
+				</if>
+				<if test="username != null">
+					username = #{username,jdbcType=CHAR},
+				</if>
+				<if test="email != null">
+					email = #{email,jdbcType=CHAR},
+				</if>
+			</trim>
+		</set>
     	where id = #{id,jdbcType=INTEGER}
   	</update>
   
@@ -63,7 +74,12 @@
   	</select>
 	
 	<select id="countUser" resultType="int" parameterType="map">
-    	select count(*) from t_user
+    	select count(*) from t_user 
+    	<where>
+    		<if test="queryText != null">
+				loginacct like concat('%', #{queryText}, '%')
+			</if>
+    	</where>
   	</select>
   	
   	<delete id="deleteUsersByPrimaryKey" parameterType="Integer[]" >

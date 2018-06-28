@@ -70,10 +70,6 @@ public class UserController extends BaseController {
 	@RequestMapping("/doAdd.do")
 	public Object addUser(String loginacct, String userpswd, String username, String email, HttpSession session) {
 		
-		if(session == null || session.getAttribute(Const.LOGIN_USER) == null) {
-			return "redirect:/login.htm";
-		}
-		
 		start();
 		
 		try {
@@ -101,10 +97,6 @@ public class UserController extends BaseController {
 	@RequestMapping("/edit.do")
 	public String edit(Integer id, HttpSession session, HttpServletRequest request) {
 		
-		if(session == null || session.getAttribute(Const.LOGIN_USER) == null) {
-			return "redirect:/login.htm";
-		}
-		
 		User user = userService.queryUserById(id);
 		
 		if(user == null) {
@@ -120,14 +112,8 @@ public class UserController extends BaseController {
 	@RequestMapping("/delete.do")
 	public Object delete(Integer[] id, HttpSession session) {
 		
-		if(session == null || session.getAttribute(Const.LOGIN_USER) == null) {
-			return "redirect:/login.htm";
-		}
-		
 		start();
-		for (Integer integer : id) {
-			System.out.println(integer);
-		}
+		
 		try {
 			userService.deleteUser(id);
 			success(true);
@@ -139,15 +125,31 @@ public class UserController extends BaseController {
 		return end();
 	}
 	
-	
-//	@RequestMapping("/update.do")
-//	public String aoedit(Integer id, HttpSession session) {
-//		
-//		if(session == null || session.getAttribute(Const.LOGIN_USER) == null) {
-//			return "redirect:/login.htm";
-//		}
-//		
-//		
-//	}
+	@ResponseBody
+	@RequestMapping("/doUpdate.do")
+	public Object doUpdate(Integer id, String loginacct, String username, String email) {
+		
+		start();
+		
+		try {
+			
+			Map<String, Object> paramMap = new HashMap<>();
+			System.out.println(id);
+			paramMap.put("id", id);
+			paramMap.put("loginacct", loginacct);
+			paramMap.put("username", username);
+			paramMap.put("email", email);
+			
+			userService.updateUser(paramMap);
+			
+			success(true);
+		} catch (Exception e) {
+			success(false);
+			message(Const.UPDATE_DATA_ERROR);
+			e.printStackTrace();
+		}
+		
+		return end();
+	}
 	
 }
