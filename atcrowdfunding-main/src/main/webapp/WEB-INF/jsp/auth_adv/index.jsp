@@ -27,14 +27,14 @@
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container-fluid">
         <div class="navbar-header">
-          <div><a class="navbar-brand" style="font-size:32px;" href="#">众筹平台 - 实名认证审核</a></div>
+          <div><a class="navbar-brand" style="font-size:32px;" href="#">众筹平台 - 广告审核</a></div>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
             <li style="padding-top:8px;">
 				<div class="btn-group">
 				  <button type="button" class="btn btn-default btn-success dropdown-toggle" data-toggle="dropdown">
-					<i class="glyphicon glyphicon-user"></i> 张三 <span class="caret"></span>
+					<i class="glyphicon glyphicon-user"></i> ${ sessionScope.loginUser.username } <span class="caret"></span>
 				  </button>
 					  <ul class="dropdown-menu" role="menu">
 						<li><a href="#"><i class="glyphicon glyphicon-cog"></i> 个人设置</a></li>
@@ -63,19 +63,19 @@
 			<div class="tree">
 				<ul style="padding-left:0px;" class="list-group">
 					<li class="list-group-item tree-closed" >
-						<a href="main.html"><i class="glyphicon glyphicon-dashboard"></i> 控制面板</a> 
+						<a href="${APP_PATH}/main.htm"><i class="glyphicon glyphicon-dashboard"></i> 控制面板</a> 
 					</li>
 					<li class="list-group-item tree-closed">
 						<span><i class="glyphicon glyphicon glyphicon-tasks"></i> 权限管理 <span class="badge" style="float:right">3</span></span> 
 						<ul style="margin-top:10px;display:none;">
 							<li style="height:30px;">
-								<a href="user.html"><i class="glyphicon glyphicon-user"></i> 用户维护</a> 
+								<a href="${APP_PATH}/user/index.htm"><i class="glyphicon glyphicon-user"></i> 用户维护</a> 
 							</li>
 							<li style="height:30px;">
-								<a href="role.html"><i class="glyphicon glyphicon-king"></i> 角色维护</a> 
+								<a href="${APP_PATH}/role/index.htm"><i class="glyphicon glyphicon-king"></i> 角色维护</a> 
 							</li>
 							<li style="height:30px;">
-								<a href="permission.html"><i class="glyphicon glyphicon-lock"></i> 许可维护</a> 
+								<a href="${APP_PATH}/permission/index.htm"><i class="glyphicon glyphicon-lock"></i> 许可维护</a> 
 							</li>
 						</ul>
 					</li>
@@ -83,13 +83,13 @@
 						<span><i class="glyphicon glyphicon-ok"></i> 业务审核 <span class="badge" style="float:right">3</span></span> 
 						<ul style="margin-top:10px;">
 							<li style="height:30px;">
-								<a href="auth_cert.html" style="color:red;"><i class="glyphicon glyphicon-check"></i> 实名认证审核</a> 
+								<a href="${APP_PATH}/auth_cert/index.htm"><i class="glyphicon glyphicon-check"></i> 实名认证审核</a> 
 							</li>
 							<li style="height:30px;">
-								<a href="auth_adv.html"><i class="glyphicon glyphicon-check"></i> 广告审核</a> 
+								<a href="${APP_PATH}/auth_adv/index.htm" style="color:red;"><i class="glyphicon glyphicon-check"></i> 广告审核</a> 
 							</li>
 							<li style="height:30px;">
-								<a href="auth_project.html"><i class="glyphicon glyphicon-check"></i> 项目审核</a> 
+								<a href="${APP_PATH}/auth_project/index.htm"><i class="glyphicon glyphicon-check"></i> 项目审核</a> 
 							</li>
 						</ul>
 					</li>
@@ -97,30 +97,30 @@
 						<span><i class="glyphicon glyphicon-th-large"></i> 业务管理 <span class="badge" style="float:right">7</span></span> 
 						<ul style="margin-top:10px;display:none;">
 							<li style="height:30px;">
-								<a href="cert.html"><i class="glyphicon glyphicon-picture"></i> 资质维护</a> 
+								<a href="${APP_PATH}/cert/index.htm"><i class="glyphicon glyphicon-picture"></i> 资质维护</a> 
 							</li>
 							<li style="height:30px;">
-								<a href="type.html"><i class="glyphicon glyphicon-equalizer"></i> 分类管理</a> 
+								<a href="${APP_PATH}/certtype/index.htm"><i class="glyphicon glyphicon-equalizer"></i> 分类管理</a> 
 							</li>
 							<li style="height:30px;">
-								<a href="process.html"><i class="glyphicon glyphicon-random"></i> 流程管理</a> 
+								<a href="${APP_PATH}/process/index.htm"><i class="glyphicon glyphicon-random"></i> 流程管理</a> 
 							</li>
 							<li style="height:30px;">
-								<a href="advertisement.html"><i class="glyphicon glyphicon-hdd"></i> 广告管理</a> 
+								<a href="${APP_PATH}/advert/index.htm"><i class="glyphicon glyphicon-hdd"></i> 广告管理</a> 
 							</li>
 							<li style="height:30px;">
-								<a href="message.html"><i class="glyphicon glyphicon-comment"></i> 消息模板</a> 
+								<a href="${APP_PATH}/message/index.htm"><i class="glyphicon glyphicon-comment"></i> 消息模板</a> 
 							</li>
 							<li style="height:30px;">
-								<a href="project_type.html"><i class="glyphicon glyphicon-list"></i> 项目分类</a> 
+								<a href="${APP_PATH}/projectType/index.htm"><i class="glyphicon glyphicon-list"></i> 项目分类</a> 
 							</li>
 							<li style="height:30px;">
-								<a href="tag.html"><i class="glyphicon glyphicon-tags"></i> 项目标签</a> 
+								<a href="${APP_PATH}/tag/index.htm"><i class="glyphicon glyphicon-tags"></i> 项目标签</a> 
 							</li>
 						</ul>
 					</li>
 					<li class="list-group-item tree-closed" >
-						<a href="param.html"><i class="glyphicon glyphicon-list-alt"></i> 参数管理</a> 
+						<a href="${APP_PATH}/param/index.htm"><i class="glyphicon glyphicon-list-alt"></i> 参数管理</a> 
 					</li>
 				</ul>
 			</div>
@@ -147,62 +147,40 @@
               <thead>
                 <tr >
                   <th width="30">#</th>
-                  <th>流程名称</th>
-                  <th>流程版本</th>
-                  <th>任务名称</th>
-                  <th>申请会员</th>
+                  <th>广告描述</th>
+                  <th>时间</th>
                   <th width="100">操作</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   <td>1</td>
-                  <td>实名认证审批流程</td>
-                  <td>2</td>
-                  <td>人工审核</td>
-                  <td>张三</td>
+                  <td>XXXXXXXXXXXX商品广告</td>
+                  <td>2017-06-01</td>
                   <td>
-                      <button type="button" class="btn btn-success btn-xs"><i class=" glyphicon glyphicon-check"></i></button>
-				      <button type="button" class="btn btn-danger btn-xs"><i class=" glyphicon glyphicon-remove"></i></button>
+                      <button type="button" class="btn btn-success btn-xs"><i class="glyphicon glyphicon-eye-open"></i></button>
 				  </td>
                 </tr>
                 <tr>
                   <td>2</td>
-                  <td>实名认证审批流程</td>
-                  <td>2</td>
-                  <td>人工审核</td>
-                  <td>张三</td>
+                  <td>XXXXXXXXXXXX商品广告</td>
+                  <td>2017-06-01</td>
                   <td>
-                      <button type="button" class="btn btn-success btn-xs"><i class=" glyphicon glyphicon-check"></i></button>
-				      <button type="button" class="btn btn-danger btn-xs"><i class=" glyphicon glyphicon-remove"></i></button>
+                      <button type="button" class="btn btn-success btn-xs"><i class="glyphicon glyphicon-eye-open"></i></button>
 				  </td>
                 </tr>
                 <tr>
                   <td>3</td>
-                  <td>实名认证审批流程</td>
-                  <td>2</td>
-                  <td>人工审核</td>
-                  <td>张三</td>
+                  <td>XXXXXXXXXXXX商品广告</td>
+                  <td>2017-06-01</td>
                   <td>
-                      <button type="button" class="btn btn-success btn-xs"><i class=" glyphicon glyphicon-check"></i></button>
-				      <button type="button" class="btn btn-danger btn-xs"><i class=" glyphicon glyphicon-remove"></i></button>
-				  </td>
-                </tr>
-                <tr>
-                  <td>4</td>
-                  <td>实名认证审批流程</td>
-                  <td>2</td>
-                  <td>人工审核</td>
-                  <td>张三</td>
-                  <td>
-                      <button type="button" class="btn btn-success btn-xs"><i class=" glyphicon glyphicon-check"></i></button>
-				      <button type="button" class="btn btn-danger btn-xs"><i class=" glyphicon glyphicon-remove"></i></button>
+                      <button type="button" class="btn btn-success btn-xs"><i class="glyphicon glyphicon-eye-open"></i></button>
 				  </td>
                 </tr>
               </tbody>
 			  <tfoot>
 			     <tr >
-				     <td colspan="6" align="center">
+				     <td colspan="4" align="center">
 						<ul class="pagination">
 								<li class="disabled"><a href="#">上一页</a></li>
 								<li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>

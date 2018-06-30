@@ -9,15 +9,35 @@
 		<id column="id" property="id" jdbcType="INTEGER" />
 		<result column="name" property="name" jdbcType="VARCHAR" />
 	</resultMap>
+	
+<!-- 	<resultMap id="MapResultMap" type="java.util.HashMap"> -->
+<!-- 		<id column="id" property="key" jdbcType="INTEGER" /> -->
+<!--         <result property="value" resultMap="BaseResultMap" /> -->
+<!-- 	</resultMap> -->
 
 	<insert id="insert" parameterType="map">
 		insert into t_role (id, name)
 		values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR})
 	</insert>
 
+<!-- 	<select id="selectAll" resultMap="BaseResultMap"> -->
+<!-- 		select id, name -->
+<!-- 		from t_role -->
+<!-- 	</select> -->
+
 	<select id="selectAll" resultMap="BaseResultMap">
-		select id, name
-		from t_role
+		select id, name 
+		from t_role 
+	</select>
+	
+	<select id="selectAllByPrimaryKeys" resultMap="BaseResultMap" parameterType="Integer[]" >
+		select id, name 
+		from t_role 
+		where id in 
+    	<foreach collection="array" item="id" index="no" open="("  
+            separator="," close=")">  
+            #{id}  
+        </foreach> 
 	</select>
 	
 	<update id="updateRole" parameterType="map">
@@ -58,7 +78,7 @@
     	</where>
   	</select>
   	
-  	<delete id="deleteRolesByPrimaryKey" parameterType="Integer[]" >
+  	<delete id="deleteRolesByPrimaryKeys" parameterType="Integer[]" >
     	delete from t_role 
     	where id in 
     	<foreach collection="array" item="id" index="no" open="("  

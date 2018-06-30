@@ -1,5 +1,6 @@
 package com.atguigu.atcrowdfunding.manager.service;
 
+import java.util.List;
 import java.util.Map;
 
 import com.atguigu.atcrowdfunding.bean.Role;
@@ -18,5 +19,9 @@ public interface RoleService {
 	public void deleteRole(Integer[] id);
 
 	public void updateRole(Map<String, Object> paramMap);
+	
+	public List<Role> queryAll();
+	
+	public List<Role> queryAllByPrimaryKeys(Integer[] id);
 	
 }

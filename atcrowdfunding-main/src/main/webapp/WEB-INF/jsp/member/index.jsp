@@ -57,17 +57,17 @@
 			<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 			  <div class="container">
 				<div class="navbar-header">
-				  <a class="navbar-brand" href="index.html" style="font-size:32px;">尚筹网-创意产品众筹平台</a>
+				  <a class="navbar-brand" href="${APP_PATH}/index.htm" style="font-size:32px;">尚筹网-创意产品众筹平台</a>
 				</div>
             <div id="navbar" class="navbar-collapse collapse" style="float:right;">
               <ul class="nav navbar-nav">
                 <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-user"></i> ${paramScope.username} <span class="caret"></span></a>
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-user"></i> ${ sessionScope.loginUser.username } <span class="caret"></span></a>
                   <ul class="dropdown-menu" role="menu">
-                    <li><a href="member.html"><i class="glyphicon glyphicon-scale"></i> 会员中心</a></li>
+                    <li><a href="${APP_PATH}/member/index.htm"><i class="glyphicon glyphicon-scale"></i> 会员中心</a></li>
                     <li><a href="#"><i class="glyphicon glyphicon-comment"></i> 消息</a></li>
                     <li class="divider"></li>
-                    <li><a href="index.html"><i class="glyphicon glyphicon-off"></i> 退出系统</a></li>
+                    <li><a href="${APP_PATH}/doLogout.do"><i class="glyphicon glyphicon-off"></i> 退出系统</a></li>
                   </ul>
                 </li>
               </ul>
@@ -83,12 +83,12 @@
 			<div class="row">
 				<div class="col-md-12">
 					<div class="thumbnail" style="    border-radius: 0px;">
-						<img src="img/services-box1.jpg" class="img-thumbnail" alt="">
+						<img src="${APP_PATH}/img/services-box1.jpg" class="img-thumbnail" alt="">
 						<div class="caption" style="text-align:center;">
 							<h3>
-								ZhangSan
+								${ sessionScope.loginUser.username }
 							</h3>
-							<span class="label label-danger" style="cursor:pointer;" onclick="window.location.href='accttype.html'">未实名认证</span>
+							<span class="label label-danger" style="cursor:pointer;" onclick="window.location.href='${APP_PATH}/member/accttype.htm'">未实名认证</span>
 						</div>
 					</div>
 				</div>
@@ -97,7 +97,7 @@
 				<div class="list-group-item active">
 					资产总览<span class="badge"><i class="glyphicon glyphicon-chevron-right"></i></span>
 				</div>
-				<div class="list-group-item " style="cursor:pointer;" onclick="window.location.href='minecrowdfunding.html'">
+				<div class="list-group-item " style="cursor:pointer;" onclick="window.location.href='${APP_PATH}/member/minecrowdfunding.htm'">
 					我的众筹<span class="badge"><i class="glyphicon glyphicon-chevron-right"></i></span>
 				</div>
 			</div>

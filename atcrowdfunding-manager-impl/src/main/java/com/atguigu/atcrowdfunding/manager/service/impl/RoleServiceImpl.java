@@ -81,12 +81,24 @@ public class RoleServiceImpl implements RoleService{
 
 	@Override
 	public void deleteRole(Integer[] id) {
-		roleDao.deleteRolesByPrimaryKey(id);
+		roleDao.deleteRolesByPrimaryKeys(id);
 	}
 
 	@Override
 	public void updateRole(Map<String, Object> paramMap) {
 		roleDao.updateRole(paramMap);
+	}
+
+	@Override
+	public List<Role> queryAll() {
+		
+		return roleDao.selectAll();
+	}
+
+	@Override
+	public List<Role> queryAllByPrimaryKeys(Integer[] id) {
+		
+		return roleDao.selectAllByPrimaryKeys(id);
 	}
 
 }

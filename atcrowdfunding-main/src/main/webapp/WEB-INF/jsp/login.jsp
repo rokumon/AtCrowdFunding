@@ -101,7 +101,11 @@
         	},
         	success:function(result){
         		if(result.success){
-        			window.location.href="${ APP_PATH }/main.htm";
+        			if(result.data == "member"){
+        				window.location.href="${ APP_PATH }/member/index.htm";
+        			} else if(result.data == "user"){
+        				window.location.href="${ APP_PATH }/main.htm";
+        			}
         		} else {
         			layer.msg(result.message, {time:1500, icon:5, shift:6});
         		}

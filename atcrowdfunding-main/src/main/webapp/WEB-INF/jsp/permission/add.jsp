@@ -1,9 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="zh-CN">
   <head>
     <meta charset="UTF-8">
@@ -36,13 +33,13 @@
             <li style="padding-top:8px;">
 				<div class="btn-group">
 				  <button type="button" class="btn btn-default btn-success dropdown-toggle" data-toggle="dropdown">
-					<i class="glyphicon glyphicon-user"></i> 张三 <span class="caret"></span>
+					<i class="glyphicon glyphicon-user"></i> ${ sessionScope.loginUser.username } <span class="caret"></span>
 				  </button>
 					  <ul class="dropdown-menu" role="menu">
 						<li><a href="#"><i class="glyphicon glyphicon-cog"></i> 个人设置</a></li>
 						<li><a href="#"><i class="glyphicon glyphicon-comment"></i> 消息</a></li>
 						<li class="divider"></li>
-						<li><a href="login.html"><i class="glyphicon glyphicon-off"></i> 退出系统</a></li>
+						<li><a href="${APP_PATH}/doLogout.do"><i class="glyphicon glyphicon-off"></i> 退出系统</a></li>
 					  </ul>
 			    </div>
 			</li>
@@ -65,19 +62,19 @@
 			<div class="tree">
 				<ul style="padding-left:0px;" class="list-group">
 					<li class="list-group-item tree-closed" >
-						<a href="main.html"><i class="glyphicon glyphicon-dashboard"></i> 控制面板</a> 
+						<a href="${APP_PATH}/main.htm"><i class="glyphicon glyphicon-dashboard"></i> 控制面板</a> 
 					</li>
 					<li class="list-group-item">
 						<span><i class="glyphicon glyphicon glyphicon-tasks"></i> 权限管理 <span class="badge" style="float:right">3</span></span> 
 						<ul style="margin-top:10px;">
 							<li style="height:30px;">
-								<a href="user.html" style="color:red;"><i class="glyphicon glyphicon-user"></i> 用户维护</a> 
+								<a href="${APP_PATH}/user/index.htm" style="color:red;"><i class="glyphicon glyphicon-user"></i> 用户维护</a> 
 							</li>
 							<li style="height:30px;">
-								<a href="role.html"><i class="glyphicon glyphicon-certificate"></i> 角色维护</a> 
+								<a href="${APP_PATH}/role/index.htm"><i class="glyphicon glyphicon-certificate"></i> 角色维护</a> 
 							</li>
 							<li style="height:30px;">
-								<a href="permission.html"><i class="glyphicon glyphicon-lock"></i> 许可维护</a> 
+								<a href="${APP_PATH}/permission/index.htm"><i class="glyphicon glyphicon-lock"></i> 许可维护</a> 
 							</li>
 						</ul>
 					</li>
@@ -85,13 +82,13 @@
 						<span><i class="glyphicon glyphicon-ok"></i> 业务审核 <span class="badge" style="float:right">3</span></span> 
 						<ul style="margin-top:10px;display:none;">
 							<li style="height:30px;">
-								<a href="auth_cert.html"><i class="glyphicon glyphicon-check"></i> 实名认证审核</a> 
+								<a href="${APP_PATH}/auth_cert/index.htm"><i class="glyphicon glyphicon-check"></i> 实名认证审核</a> 
 							</li>
 							<li style="height:30px;">
-								<a href="auth_adv.html"><i class="glyphicon glyphicon-check"></i> 广告审核</a> 
+								<a href="${APP_PATH}/auth_adv/index.htm"><i class="glyphicon glyphicon-check"></i> 广告审核</a> 
 							</li>
 							<li style="height:30px;">
-								<a href="auth_project.html"><i class="glyphicon glyphicon-check"></i> 项目审核</a> 
+								<a href="${APP_PATH}/auth_project/index.htm"><i class="glyphicon glyphicon-check"></i> 项目审核</a> 
 							</li>
 						</ul>
 					</li>
@@ -99,30 +96,30 @@
 						<span><i class="glyphicon glyphicon-th-large"></i> 业务管理 <span class="badge" style="float:right">7</span></span> 
 						<ul style="margin-top:10px;display:none;">
 							<li style="height:30px;">
-								<a href="cert.html"><i class="glyphicon glyphicon-picture"></i> 资质维护</a> 
+								<a href="${APP_PATH}/cert/index.htm"><i class="glyphicon glyphicon-picture"></i> 资质维护</a> 
 							</li>
 							<li style="height:30px;">
-								<a href="type.html"><i class="glyphicon glyphicon-equalizer"></i> 分类管理</a> 
+								<a href="${APP_PATH}/certtype/index.htm"><i class="glyphicon glyphicon-equalizer"></i> 分类管理</a> 
 							</li>
 							<li style="height:30px;">
-								<a href="process.html"><i class="glyphicon glyphicon-random"></i> 流程管理</a> 
+								<a href="${APP_PATH}/process/index.htm"><i class="glyphicon glyphicon-random"></i> 流程管理</a> 
 							</li>
 							<li style="height:30px;">
-								<a href="advertisement.html"><i class="glyphicon glyphicon-hdd"></i> 广告管理</a> 
+								<a href="${APP_PATH}/advert/index.htm"><i class="glyphicon glyphicon-hdd"></i> 广告管理</a> 
 							</li>
 							<li style="height:30px;">
-								<a href="message.html"><i class="glyphicon glyphicon-comment"></i> 消息模板</a> 
+								<a href="${APP_PATH}/message/index.htm"><i class="glyphicon glyphicon-comment"></i> 消息模板</a> 
 							</li>
 							<li style="height:30px;">
-								<a href="project_type.html"><i class="glyphicon glyphicon-list"></i> 项目分类</a> 
+								<a href="${APP_PATH}/projectType/index.htm"><i class="glyphicon glyphicon-list"></i> 项目分类</a> 
 							</li>
 							<li style="height:30px;">
-								<a href="tag.html"><i class="glyphicon glyphicon-tags"></i> 项目标签</a> 
+								<a href="${APP_PATH}/tag/index.htm"><i class="glyphicon glyphicon-tags"></i> 项目标签</a> 
 							</li>
 						</ul>
 					</li>
 					<li class="list-group-item tree-closed" >
-						<a href="param.html"><i class="glyphicon glyphicon-list-alt"></i> 参数管理</a> 
+						<a href="${APP_PATH}/param/index.htm"><i class="glyphicon glyphicon-list-alt"></i> 参数管理</a> 
 					</li>
 				</ul>
 			</div>
@@ -131,36 +128,26 @@
 				<ol class="breadcrumb">
 				  <li><a href="#">首页</a></li>
 				  <li><a href="#">数据列表</a></li>
-				  <li class="active">分配角色</li>
+				  <li class="active">新增</li>
 				</ol>
 			<div class="panel panel-default">
+              <div class="panel-heading">表单数据<div style="float:right;cursor:pointer;" data-toggle="modal" data-target="#myModal"><i class="glyphicon glyphicon-question-sign"></i></div></div>
 			  <div class="panel-body">
-				<form role="form" class="form-inline">
+				<form id="addPermissionForm">
 				  <div class="form-group">
-					<label for="exampleInputPassword1">未分配角色列表</label><br>
-					<select class="form-control" multiple size="10" style="width:100px;overflow-y:auto;">
-                        <option value="pm">PM</option>
-                        <option value="sa">SA</option>
-                        <option value="se">SE</option>
-                        <option value="tl">TL</option>
-                        <option value="gl">GL</option>
-                    </select>
+					<label for="name">名称</label>
+					<input type="text" class="form-control" id="name" name="name" placeholder="请输入名称">
 				  </div>
 				  <div class="form-group">
-                        <ul>
-                            <li class="btn btn-default glyphicon glyphicon-chevron-right"></li>
-                            <br>
-                            <li class="btn btn-default glyphicon glyphicon-chevron-left" style="margin-top:20px;"></li>
-                        </ul>
+					<label for="icon">图标</label>
+					<input type="text" class="form-control" id="icon" name="icon" placeholder="请输入图标">
 				  </div>
-				  <div class="form-group" style="margin-left:40px;">
-					<label for="exampleInputPassword1">已分配角色列表</label><br>
-					<select class="form-control" multiple size="10" style="width:100px;overflow-y:auto;">
-                        <option value="qa">QA</option>
-                        <option value="qc">QC</option>
-                        <option value="pg">PG</option>
-                    </select>
+				  <div class="form-group">
+					<label for="url">路径</label>
+					<input type="text" class="form-control" id="url" name="url" placeholder="请输入路径">
 				  </div>
+				  <button id="saveBtn" pid="${ param.pid }" type="button" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i> 新增</button>
+				  <button type="reset" class="btn btn-danger" ><i class="glyphicon glyphicon-refresh"></i> 重置</button>
 				</form>
 			  </div>
 			</div>
@@ -184,19 +171,15 @@
 				<p>测试内容2，测试内容2，测试内容2，测试内容2，测试内容2，测试内容2</p>
 			  </div>
 		  </div>
-		  <!--
-		  <div class="modal-footer">
-			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-			<button type="button" class="btn btn-primary">Save changes</button>
-		  </div>
-		  -->
 		</div>
 	  </div>
 	</div>
     <script src="${APP_PATH}/jquery/jquery-2.1.1.min.js"></script>
     <script src="${APP_PATH}/bootstrap/js/bootstrap.min.js"></script>
 	<script src="${APP_PATH}/script/docs.min.js"></script>
-        <script type="text/javascript">
+	<script src="${APP_PATH}/jquery/layer/layer.js"></script>
+    <script type="text/javascript">
+        
             $(function () {
 			    $(".list-group-item").click(function(){
 				    if ( $(this).find("ul") ) {
@@ -209,6 +192,35 @@
 					}
 				});
             });
-        </script>
+            
+            
+            $("#saveBtn").click(function(){
+            	
+            	var pid = $("#saveBtn").attr("pid");
+    			var name = $("#name").val().trim();
+    			var icon = $("#icon").val().trim();
+    			var url = $("#url").val().trim();
+    		
+    			$.ajax({
+    				type:"POST",
+    				url:"${APP_PATH}/permission/doAdd.do",
+    				data:{
+    					pid:pid,
+    					name:name,
+    					icon:icon,
+    					url:url
+    				},
+    				success:function(result){
+    					if(result.success){
+    						window.location.href="${APP_PATH}/permission/index.htm";
+    					} else {
+    						layer.msg(result.message, {time:1500, icon:5, shift:6});
+    					}
+    				}
+    			});
+            });
+            
+            
+   	</script>
   </body>
 </html>

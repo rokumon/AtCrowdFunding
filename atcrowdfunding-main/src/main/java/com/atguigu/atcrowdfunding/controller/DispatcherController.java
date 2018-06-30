@@ -51,12 +51,14 @@ public class DispatcherController extends BaseController {
 			if("user".equals(usertype)) {
 				User user = userService.queryUserByLogin(paramMap);
 				session.setAttribute(Const.LOGIN_USER, user);
+				data("user");
 				action = !action;
 			}
 			
 			if("member".equals(usertype)) {
 				Member member = memberService.queryMemberByLogin(paramMap);
 				session.setAttribute(Const.LOGIN_USER, member);
+				data("member");
 				action = !action;
 			}
 			
