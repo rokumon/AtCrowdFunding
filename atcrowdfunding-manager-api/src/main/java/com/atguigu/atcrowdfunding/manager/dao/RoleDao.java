@@ -13,7 +13,9 @@ public interface RoleDao {
 	
 	int insert(Map<String, Object> paramMap);
 
-    List<Role> selectAll();
+	List<Role> selectAll();
+    
+    List<Role> selectAllByPrimaryKeys(Integer[] id);
 
     int updateRole(Map<String, Object> paramMap);
 
@@ -21,5 +23,6 @@ public interface RoleDao {
 
 	Integer countRole(Map<String, Object> paramMap);
 
-	int deleteRolesByPrimaryKey(Integer[] id);
+	int deleteRolesByPrimaryKeys(Integer[] id);
+
 }

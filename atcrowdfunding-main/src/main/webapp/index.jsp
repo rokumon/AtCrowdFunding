@@ -4,10 +4,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>First Page</title>
+<title>尚众筹</title>
 </head>
 <body>
-	
 	<jsp:forward page="/index.htm"></jsp:forward>	
 </body>
 </html>

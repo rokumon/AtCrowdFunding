@@ -79,10 +79,10 @@
                 <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-user"></i> 张三<span class="caret"></span></a>
                   <ul class="dropdown-menu" role="menu">
-                    <li><a href="member.html">会员中心</a></li>
+                    <li><a href="${APP_PATH}/member/index.htm">会员中心</a></li>
                     <li><a href="message.html">消息 <span class="badge badge-success">42</span></a></li>
                     <li class="divider"></li>
-                    <li><a href="index.html">退出系统</a></li>
+                    <li><a href="${APP_PATH}/doLogout.do">退出系统</a></li>
                   </ul>
                 </li>
               </ul>
