@@ -1,12 +1,9 @@
 package com.atguigu.atcrowdfunding.manager.controller;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,27 +11,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.atguigu.atcrowdfunding.bean.User;
+import com.atguigu.atcrowdfunding.bean.Role;
 import com.atguigu.atcrowdfunding.controller.BaseController;
-import com.atguigu.atcrowdfunding.manager.service.UserService;
+import com.atguigu.atcrowdfunding.manager.service.RoleService;
 import com.atguigu.atcrowdfunding.util.Const;
 import com.atguigu.atcrowdfunding.util.Page;
 
 @Controller
-@RequestMapping(value = "/user")
-public class UserController extends BaseController {
-	
+@RequestMapping(value="/role")
+public class RoleController extends BaseController{
+
 	@Autowired
-	UserService userService;
+	RoleService roleService;
 	
 	@RequestMapping("/index.htm")
 	public String index() {
-		return "user/index";
+		return "role/index";
 	}
 	
 	@ResponseBody
-	@RequestMapping("/queryUserByPage")
-	public Object queryUserByPage(@RequestParam(value="pageno",required=false,defaultValue="1")Integer pageno, 
+	@RequestMapping("/queryRoleByPage")
+	public Object queryRoleByPage(@RequestParam(value="pageno",required=false,defaultValue="1")Integer pageno, 
 								  @RequestParam(value="pagesize",required=false,defaultValue="10")Integer pagesize,
 								  @RequestParam(value="queryText",required=false)String queryText) {
 		
@@ -47,7 +44,9 @@ public class UserController extends BaseController {
 			paramMap.put("pagesize", pagesize);
 			paramMap.put("queryText", queryText);
 			
-			Page<User> page = userService.queryUserByPage(paramMap);
+			System.out.println(paramMap);
+			
+			Page<Role> page = roleService.queryRoleByPage(paramMap);
 					
 			data(page);
 			
@@ -61,28 +60,22 @@ public class UserController extends BaseController {
 	
 	@RequestMapping("/toAdd.htm")
 	public String add() {
-		return "user/add";
+		return "role/add";
 	}
 	
 	@ResponseBody
 	@RequestMapping("/doAdd.do")
-	public Object addUser(String loginacct, String userpswd, String username, String email, HttpSession session) {
+	public Object addRole(String name) {
 		
 		start();
 		
 		try {
 			
-			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			
 			Map<String, Object> paramMap = new HashMap<>();
-			
-			paramMap.put("loginacct", loginacct);
-			paramMap.put("userpswd", userpswd);
-			paramMap.put("username", username);
-			paramMap.put("email", email);
-			paramMap.put("createTime", simpleDateFormat.format(new Date()));
-			
-			userService.addUser(paramMap);
+
+			paramMap.put("name", name);
+
+			roleService.addRole(paramMap);
 			
 			success(true);
 		} catch (Exception e) {
@@ -93,27 +86,27 @@ public class UserController extends BaseController {
 	}
 	
 	@RequestMapping("/edit.do")
-	public String edit(Integer id, HttpSession session, HttpServletRequest request) {
+	public String edit(Integer id, HttpServletRequest request) {
 		
-		User user = userService.queryUserById(id);
+		Role role = roleService.queryRoleById(id);
 		
-		if(user == null) {
-			return "redirect:/user/index.htm";
+		if(role == null) {
+			return "redirect:/role/index.htm";
 		}
 		
-		request.setAttribute("user", user);
+		request.setAttribute("role", role);
 		
-		return "user/edit";
+		return "role/edit";
 	}
 	
 	@ResponseBody
 	@RequestMapping("/delete.do")
-	public Object delete(Integer[] id, HttpSession session) {
+	public Object delete(Integer[] id) {
 		
 		start();
 		
 		try {
-			userService.deleteUser(id);
+			roleService.deleteRole(id);
 			success(true);
 		} catch (Exception e) {
 			success(false);
@@ -125,7 +118,7 @@ public class UserController extends BaseController {
 	
 	@ResponseBody
 	@RequestMapping("/doUpdate.do")
-	public Object doUpdate(Integer id, String loginacct, String username, String email) {
+	public Object doUpdate(Integer id, String name) {
 		
 		start();
 		
@@ -133,11 +126,9 @@ public class UserController extends BaseController {
 			
 			Map<String, Object> paramMap = new HashMap<>();
 			paramMap.put("id", id);
-			paramMap.put("loginacct", loginacct);
-			paramMap.put("username", username);
-			paramMap.put("email", email);
+			paramMap.put("name", name);
 			
-			userService.updateUser(paramMap);
+			roleService.updateRole(paramMap);
 			
 			success(true);
 		} catch (Exception e) {

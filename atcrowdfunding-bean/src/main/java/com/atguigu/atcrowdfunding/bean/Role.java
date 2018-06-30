@@ -1,6 +1,7 @@
 package com.atguigu.atcrowdfunding.bean;
 
 public class Role {
+	
     private Integer id;
 
     private String name;

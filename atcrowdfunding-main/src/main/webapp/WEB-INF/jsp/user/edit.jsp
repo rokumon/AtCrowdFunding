@@ -9,19 +9,14 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-	<link rel="stylesheet" href="${ APP_PATH }/bootstrap/css/bootstrap.min.css">
-	<link rel="stylesheet" href="${ APP_PATH }/css/font-awesome.min.css">
-	<link rel="stylesheet" href="${ APP_PATH }/css/main.css">
+	<link rel="stylesheet" href="${APP_PATH}/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="${APP_PATH}/css/font-awesome.min.css">
+	<link rel="stylesheet" href="${APP_PATH}/css/main.css">
+	<link rel="stylesheet" href="${APP_PATH}/css/doc.min.css">
 	<style>
 	.tree li {
         list-style-type: none;
 		cursor:pointer;
-	}
-	.tree-closed {
-	    height : 40px;
-	}
-	.tree-expanded {
-	    height : auto;
 	}
 	</style>
   </head>
@@ -31,7 +26,7 @@
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container-fluid">
         <div class="navbar-header">
-          <div><a class="navbar-brand" style="font-size:32px;" href="#">众筹平台 - 控制面板</a></div>
+            <div><a class="navbar-brand" style="font-size:32px;" href="user.html">众筹平台 - 用户维护</a></div>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
@@ -44,7 +39,7 @@
 						<li><a href="#"><i class="glyphicon glyphicon-cog"></i> 个人设置</a></li>
 						<li><a href="#"><i class="glyphicon glyphicon-comment"></i> 消息</a></li>
 						<li class="divider"></li>
-						<li><a href="${ APP_PATH }/doLogout.do"><i class="glyphicon glyphicon-off"></i> 退出系统</a></li>
+						<li><a href="login.html"><i class="glyphicon glyphicon-off"></i> 退出系统</a></li>
 					  </ul>
 			    </div>
 			</li>
@@ -55,11 +50,12 @@
 			</li>
           </ul>
           <form class="navbar-form navbar-right">
-            <input type="text" class="form-control" placeholder="查询">
+            <input type="text" class="form-control" placeholder="Search...">
           </form>
         </div>
       </div>
     </nav>
+
     <div class="container-fluid">
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
@@ -68,14 +64,14 @@
 					<li class="list-group-item tree-closed" >
 						<a href="main.html"><i class="glyphicon glyphicon-dashboard"></i> 控制面板</a> 
 					</li>
-					<li class="list-group-item tree-closed">
+					<li class="list-group-item">
 						<span><i class="glyphicon glyphicon glyphicon-tasks"></i> 权限管理 <span class="badge" style="float:right">3</span></span> 
-						<ul style="margin-top:10px;display:none;">
+						<ul style="margin-top:10px;">
 							<li style="height:30px;">
-								<a href="${ APP_PATH }/user/index.htm"><i class="glyphicon glyphicon-user"></i> 用户维护</a> 
+								<a href="${APP_PATH}/user/index.htm" style="color:red;"><i class="glyphicon glyphicon-user"></i> 用户维护</a> 
 							</li>
 							<li style="height:30px;">
-								<a href="${ APP_PATH }/role/index.htm"><i class="glyphicon glyphicon-king"></i> 角色维护</a> 
+								<a href="${APP_PATH}/role/index.htm"><i class="glyphicon glyphicon-certificate"></i> 角色维护</a> 
 							</li>
 							<li style="height:30px;">
 								<a href="permission.html"><i class="glyphicon glyphicon-lock"></i> 许可维护</a> 
@@ -129,37 +125,100 @@
 			</div>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h1 class="page-header">控制面板</h1>
-
-          <div class="row placeholders">
-            <div class="col-xs-6 col-sm-3 placeholder">
-              <img data-src="holder.js/200x200/auto/sky" class="img-responsive" alt="Generic placeholder thumbnail">
-              <h4>Label</h4>
-              <span class="text-muted">Something else</span>
-            </div>
-            <div class="col-xs-6 col-sm-3 placeholder">
-              <img data-src="holder.js/200x200/auto/vine" class="img-responsive" alt="Generic placeholder thumbnail">
-              <h4>Label</h4>
-              <span class="text-muted">Something else</span>
-            </div>
-            <div class="col-xs-6 col-sm-3 placeholder">
-              <img data-src="holder.js/200x200/auto/sky" class="img-responsive" alt="Generic placeholder thumbnail">
-              <h4>Label</h4>
-              <span class="text-muted">Something else</span>
-            </div>
-            <div class="col-xs-6 col-sm-3 placeholder">
-              <img data-src="holder.js/200x200/auto/vine" class="img-responsive" alt="Generic placeholder thumbnail">
-              <h4>Label</h4>
-              <span class="text-muted">Something else</span>
-            </div>
-          </div>
+				<ol class="breadcrumb">
+				  <li><a href="#">首页</a></li>
+				  <li><a href="#">数据列表</a></li>
+				  <li class="active">修改</li>
+				</ol>
+			<div class="panel panel-default">
+              <div class="panel-heading">表单数据<div style="float:right;cursor:pointer;" data-toggle="modal" data-target="#myModal"><i class="glyphicon glyphicon-question-sign"></i></div></div>
+			  <div class="panel-body">
+				<form role="form">
+				  <div class="form-group">
+					<label for="loginacct">登陆账号</label>
+					<input type="text" class="form-control" id="loginacct" name="loginacct" oldvalue="${ requestScope.user.loginacct }" value="${ requestScope.user.loginacct }">
+				  </div>
+				  <div class="form-group">
+					<label for="username">用户名称</label>
+					<input type="text" class="form-control" id="username" name="username" oldvalue="${ requestScope.user.username }" value="${ requestScope.user.username }">
+				  </div>
+				  <div class="form-group">
+					<label for="email">邮箱地址</label>
+					<input type="email" class="form-control" id="email" name="email" oldvalue="${ requestScope.user.email }" value="${ requestScope.user.email }">
+					<p class="help-block label label-warning">请输入合法的邮箱地址, 格式为： xxxx@xxxx.com</p>
+				  </div>
+				  <button type="button" id="doupdateBtn" class="btn btn-success" onclick="doupdate()" uid="${ requestScope.user.id }" ><i class="glyphicon glyphicon-edit"></i> 修改</button>
+				  <button type="button" class="btn btn-danger" onclick="reset()"><i class="glyphicon glyphicon-refresh"></i> 重置</button>
+				</form>
+			  </div>
+			</div>
         </div>
       </div>
     </div>
-    <script src="${ APP_PATH }/jquery/jquery-2.1.1.min.js"></script>
-    <script src="${ APP_PATH }/bootstrap/js/bootstrap.min.js"></script>
-	<script src="${ APP_PATH }/script/docs.min.js"></script>
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+		<div class="modal-content">
+		  <div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+			<h4 class="modal-title" id="myModalLabel">帮助</h4>
+		  </div>
+		  <div class="modal-body">
+			<div class="bs-callout bs-callout-info">
+				<h4>测试标题1</h4>
+				<p>测试内容1，测试内容1，测试内容1，测试内容1，测试内容1，测试内容1</p>
+			  </div>
+			<div class="bs-callout bs-callout-info">
+				<h4>测试标题2</h4>
+				<p>测试内容2，测试内容2，测试内容2，测试内容2，测试内容2，测试内容2</p>
+			  </div>
+		  </div>
+		  <!--
+		  <div class="modal-footer">
+			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			<button type="button" class="btn btn-primary">Save changes</button>
+		  </div>
+		  -->
+		</div>
+	  </div>
+	</div>
+    <script src="${APP_PATH}/jquery/jquery-2.1.1.min.js"></script>
+    <script src="${APP_PATH}/bootstrap/js/bootstrap.min.js"></script>
+	<script src="${APP_PATH}/script/docs.min.js"></script>
+	<script src="${ APP_PATH }/jquery/layer/layer.js"></script>
         <script type="text/javascript">
+        
+        	function doupdate(){
+        		
+        		var id = $("#doupdateBtn").attr("uid");
+        		var loginacct = $("#loginacct").val().trim();
+        		var username = $("#username").val().trim();
+        		var email = $("#email").val().trim();
+        		
+        		$.ajax({
+        			type:"POST",
+        			url:"${APP_PATH}/user/doUpdate.do",
+        			data:{
+        				id:id,
+        				loginacct:loginacct,
+        				username:username,
+        				email:email
+        			},
+        			success:function(result){
+        				if(result.success){
+        					window.location.href="${APP_PATH}/user/index.htm?pageno=${param.pageno}";
+        				} else {
+        					layer.msg(result.message, {time:1500, icon:5, shift:6});
+        				}
+        			}
+        		});
+        	}
+        	
+        	function reset(){
+        		$("#loginacct").val($("#loginacct").attr("oldvalue"));
+        		$("#username").val($("#username").attr("oldvalue"));
+        		$("#email").val($("#email").attr("oldvalue"));
+        	}
+        
             $(function () {
 			    $(".list-group-item").click(function(){
 				    if ( $(this).find("ul") ) {

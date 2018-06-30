@@ -33,13 +33,13 @@
             <li style="padding-top:8px;">
 				<div class="btn-group">
 				  <button type="button" class="btn btn-default btn-success dropdown-toggle" data-toggle="dropdown">
-					<i class="glyphicon glyphicon-user"></i> 张三 <span class="caret"></span>
+					<i class="glyphicon glyphicon-user"></i> ${ sessionScope.loginUser.username } <span class="caret"></span>
 				  </button>
 					  <ul class="dropdown-menu" role="menu">
 						<li><a href="#"><i class="glyphicon glyphicon-cog"></i> 个人设置</a></li>
 						<li><a href="#"><i class="glyphicon glyphicon-comment"></i> 消息</a></li>
 						<li class="divider"></li>
-						<li><a href="login.html"><i class="glyphicon glyphicon-off"></i> 退出系统</a></li>
+						<li><a href="${APP_PATH}/logout.do"><i class="glyphicon glyphicon-off"></i> 退出系统</a></li>
 					  </ul>
 			    </div>
 			</li>
@@ -68,10 +68,10 @@
 						<span><i class="glyphicon glyphicon glyphicon-tasks"></i> 权限管理 <span class="badge" style="float:right">3</span></span> 
 						<ul style="margin-top:10px;">
 							<li style="height:30px;">
-								<a href="user.html" style="color:red;"><i class="glyphicon glyphicon-user"></i> 用户维护</a> 
+								<a href="${APP_PATH}/user/index.htm" style="color:red;"><i class="glyphicon glyphicon-user"></i> 用户维护</a> 
 							</li>
 							<li style="height:30px;">
-								<a href="role.html"><i class="glyphicon glyphicon-certificate"></i> 角色维护</a> 
+								<a href="${ APP_PATH }/role/index.htm"><i class="glyphicon glyphicon-certificate"></i> 角色维护</a> 
 							</li>
 							<li style="height:30px;">
 								<a href="permission.html"><i class="glyphicon glyphicon-lock"></i> 许可维护</a> 
@@ -128,27 +128,18 @@
 				<ol class="breadcrumb">
 				  <li><a href="#">首页</a></li>
 				  <li><a href="#">数据列表</a></li>
-				  <li class="active">修改</li>
+				  <li class="active">新增</li>
 				</ol>
 			<div class="panel panel-default">
               <div class="panel-heading">表单数据<div style="float:right;cursor:pointer;" data-toggle="modal" data-target="#myModal"><i class="glyphicon glyphicon-question-sign"></i></div></div>
 			  <div class="panel-body">
-				<form role="form">
+				<form id="addUserForm">
 				  <div class="form-group">
-					<label for="exampleInputPassword1">登陆账号</label>
-					<input type="text" class="form-control" id="exampleInputPassword1" value="test">
+					<label for="rname">角色名称</label>
+					<input type="text" class="form-control" id="rname" name="rname" placeholder="请输入角色名称">
 				  </div>
-				  <div class="form-group">
-					<label for="exampleInputPassword1">用户名称</label>
-					<input type="text" class="form-control" id="exampleInputPassword1" value="测试用户">
-				  </div>
-				  <div class="form-group">
-					<label for="exampleInputEmail1">邮箱地址</label>
-					<input type="email" class="form-control" id="exampleInputEmail1" value="xxxx@xxxx.com">
-					<p class="help-block label label-warning">请输入合法的邮箱地址, 格式为： xxxx@xxxx.com</p>
-				  </div>
-				  <button type="button" class="btn btn-success"><i class="glyphicon glyphicon-edit"></i> 修改</button>
-				  <button type="button" class="btn btn-danger"><i class="glyphicon glyphicon-refresh"></i> 重置</button>
+				  <button id="saveBtn" type="button" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i> 新增</button>
+				  <button type="reset" class="btn btn-danger" ><i class="glyphicon glyphicon-refresh"></i> 重置</button>
 				</form>
 			  </div>
 			</div>
@@ -184,7 +175,45 @@
     <script src="${APP_PATH}/jquery/jquery-2.1.1.min.js"></script>
     <script src="${APP_PATH}/bootstrap/js/bootstrap.min.js"></script>
 	<script src="${APP_PATH}/script/docs.min.js"></script>
+	<script src="${ APP_PATH }/jquery/layer/layer.js"></script>
         <script type="text/javascript">
+        
+        	$("#saveBtn").click(function(){
+        		
+            	var name = $("#rname").val().trim();
+            	
+            	var index = -1;
+            	
+            	$.ajax({
+            		type:"POST",
+        			url:"${ APP_PATH }/role/doAdd.do",
+        			data:{
+        				name:name
+        			},
+        			success:function(result){
+        				
+        				layer.close(index);
+        				
+        				if( result.success ){
+        					window.location.href="${ APP_PATH }/role/index.htm";
+        				} else {
+        					layer.msg(result.message, {time:1500, icon:5, shift:6});
+        				}
+        			},
+        			beforeSend:function(){
+        				
+        				if(name == ""){
+        		    		layer.msg("角色名不能为空!", { time:1500, icon:5, shift:6 });
+        		    		return false;
+        		    	}
+        				
+        		    	index = layer.load(2, {time:10*1000});
+        			}
+            	});
+            	
+            	return false;
+        	});
+        
             $(function () {
 			    $(".list-group-item").click(function(){
 				    if ( $(this).find("ul") ) {

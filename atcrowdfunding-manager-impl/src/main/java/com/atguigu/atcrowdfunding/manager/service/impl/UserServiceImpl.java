@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void registUser(Map<String, Object> paramMap) {
+	public void addUser(Map<String, Object> paramMap) {
 		
 		//加密
 		String userpswd = MD5Util.digest((String) paramMap.get("userpswd"));
@@ -64,9 +64,6 @@ public class UserServiceImpl implements UserService {
 		if(changedRow != 1) {
 			throw new UserRegistException(Const.REGIST_REGISTINSERT_ERROR);
 		}
-		
-		
-		
 	}
 
 	@Override
@@ -80,9 +77,6 @@ public class UserServiceImpl implements UserService {
 		Integer startIndex = page.getStartindex();
 		paramMap.put("startIndex", startIndex);
 		
-		System.out.println(paramMap);
-		System.out.println(page);
-		
 		List<User> dates = userDao.queryUserList(paramMap);
 		
 		Integer totalsize = userDao.countUser();
@@ -92,8 +86,20 @@ public class UserServiceImpl implements UserService {
 		
 		return page;
 	}
-	
-	
-	
+
+	@Override
+	public User queryUserById(Integer id) {
+		return userDao.selectByPrimaryKey(id);
+	}
+
+	@Override
+	public void deleteUser(Integer[] id) {
+		userDao.deleteUsersByPrimaryKey(id);
+	}
+
+	@Override
+	public void updateUser(Map<String, Object> paramMap) {
+		userDao.updateUser(paramMap);
+	}
 	
 }

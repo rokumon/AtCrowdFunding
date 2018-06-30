@@ -9,8 +9,13 @@ public interface UserService {
 	
 	public User queryUserByLogin(Map<String,Object> paramMap);
 	
-	public void registUser(Map<String,Object> paramMap);
+	public void addUser(Map<String,Object> paramMap);
 
 	public Page<User> queryUserByPage(Map<String, Object> paramMap);
 
+	public User queryUserById(Integer id);
+
+	public void deleteUser(Integer[] id);
+
+	public void updateUser(Map<String, Object> paramMap);
 }
